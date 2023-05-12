@@ -26,6 +26,9 @@ int main()
 		Address address3("Natanya", "Rakefet", 10);
 		Address address4("Tel-Aviv", "Kineret", 34);
 		Address address5("Hod-Hasharon", "HaBanim", 30);
+		Address* twoAddress[2];
+		twoAddress[0] = new Address(address4);
+		twoAddress[1] = new Address(address5);
 
 		Date bday1 = Date();
 		Date bday2(1994, 3, 7);
@@ -43,11 +46,11 @@ int main()
 		vehicleArr[6] = new Car("Toyota", Vehicle::eYellow, 10000, 120, 3);
 
 		Salesman workerArr[AVAILABLE_WORKERS];
-		workerArr[0] = Salesman("Amit", address1, bday1, 2000);
-		workerArr[1] = Salesman("Gilad", address2, bday2, 3000);
-		workerArr[2] = Salesman("Asher", address3, bday3, 2500);
-		workerArr[3] = Salesman("Lavy", address4, bday4, 3100);
-		workerArr[4] = Salesman("Itamar", address5, bday5, 2900);
+		workerArr[0] = Salesman("Amit", &address1, bday1, 2000, 1);
+		workerArr[1] = Salesman("Gilad", &address2, bday2, 3000, 1);
+		workerArr[2] = Salesman("Asher", &address3, bday3, 2500, 1);
+		workerArr[3] = Salesman("Lavy", nullptr, bday4, 3100, 0);
+		workerArr[4] = Salesman("Itamar", *twoAddress, bday5, 2900, 2);
 
 		Building building(buildingAddress, MAX_VEHICLES, 6000);
 		VehicleDealership dealership("Cars, boats & more", building, MAX_WORKERS);

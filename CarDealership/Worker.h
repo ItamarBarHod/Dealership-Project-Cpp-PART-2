@@ -5,19 +5,16 @@
 #include "Address.h"
 
 class Worker {
-protected:
+private:
 	static unsigned id;
 	unsigned workerID;
 	char* name;
 	Address* address;
+	unsigned numOfAddresses;
 	Date birthday;
 	int salary;
-
-protected:
-	virtual void toOs(std::ostream& out) const;
-
 public:
-	Worker(const char* name, Address& address, Date& birthday, int salary);
+	Worker(const char* name, const Address* address, Date& birthday, int salary, unsigned numOfAddresses);
 	Worker(const Worker& other);
 	Worker(Worker&& other);
 	Worker& operator=(const Worker& other);
@@ -27,6 +24,8 @@ public:
 	friend virtual std::ostream& operator<<(std::ostream& out, const Worker& worker);
 	int getSalary() const;
 	void setSalary(unsigned salary);
+	const Address* getAddress() const;
+	unsigned getNumOfAddress() const;
 	const Date& getBirthday() const;
 	const char* getName() const;
 };

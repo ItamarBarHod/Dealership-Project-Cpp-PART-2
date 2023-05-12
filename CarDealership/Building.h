@@ -12,5 +12,4 @@ public:
 
 	unsigned getCapacity() const;
 	unsigned getCost() const;
-	void setCost(unsigned cost);
 };

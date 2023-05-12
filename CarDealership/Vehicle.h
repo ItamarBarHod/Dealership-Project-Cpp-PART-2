@@ -15,6 +15,7 @@ protected:
 
 protected:
 	virtual void toOs(std::ostream& out) const;
+	virtual void setPrice() = 0;
 
 public:
 
@@ -33,6 +34,5 @@ public:
 	virtual const char* getColor() const final;
 	bool setColor(COLOR color);
 	virtual const char* getCompanyName() const final;
-	virtual void setPrice() = 0;
 	virtual int getSpeed() const = 0;
 };

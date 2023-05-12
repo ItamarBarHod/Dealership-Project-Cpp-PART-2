@@ -12,7 +12,7 @@
 class VehicleDealership {
 private:
 	char name[MAX_DS_NAME];
-	int monthlyProfit;
+	double monthlyProfit;
 	Building& place;
 	Salesman* salesmanArr;
 	unsigned salesmanCount;
@@ -26,7 +26,7 @@ public:
 	VehicleDealership(VehicleDealership&& other) = delete;
 	~VehicleDealership();
 
-	int getMonthlyProfit() const;
+	double getMonthlyProfit() const;
 	bool addRandomVehicles(const Vehicle** vehicleArr);
 	bool hireRandomSalesmen(const Salesman& workerArr);
 
