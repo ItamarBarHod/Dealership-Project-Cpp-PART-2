@@ -9,11 +9,12 @@ private:
 
 protected:
 	virtual void toOs(std::ostream& out) const;
+	virtual void setPrice();
 
 public:
 	Boat(const char* companyName, COLOR color, float price, int sailingSpeed, int numOfSails);
 
 	virtual int getNumOfSails() const;
-	virtual void setPrice();
-	void setSail(int numOfSails);
+	virtual int getSpeed() const;
+
 };

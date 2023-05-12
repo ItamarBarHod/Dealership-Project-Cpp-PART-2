@@ -34,4 +34,5 @@ public:
 	bool setColor(COLOR color);
 	virtual const char* getCompanyName() const final;
 	virtual void setPrice() = 0;
+	virtual int getSpeed() const = 0;
 };
