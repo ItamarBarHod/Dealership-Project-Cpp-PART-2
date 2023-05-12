@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Boat.h"
 #include "Car.h"
 

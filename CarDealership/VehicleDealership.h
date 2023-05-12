@@ -1,6 +1,11 @@
+#pragma once
+
 #include "Building.h"
 #include "Salesman.h"
 #include "Vehicle.h"
+#include "Car.h"
+#include "Boat.h"
+#include "SuperBoatCar.h"
 
 #define MAX_DS_NAME 20
 

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Address.h"
 
 class Building : public Address {

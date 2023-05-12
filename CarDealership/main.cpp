@@ -2,11 +2,6 @@
 #include <time.h>
 
 #include "VehicleDealership.h"
-#include "Car.h"
-#include "Boat.h"
-#include "SuperBoatCar.h"
-#include "General.h"
-
 
 #define MAX_WORKERS 3
 #define AVAILABLE_WORKERS 5
@@ -57,34 +52,34 @@ int main()
 			cout << dealership.getMonthlyProfit() << endl; // 1
 			cout << "--------------------------------------" << endl;
 			if (!dealership.addRandomVehicles(vehicleArr))
-				cout << "error adding vehicles\n"; // 2
+				cout << "Error adding vehicles\n"; // 2
 			if (!dealership.hireRandomSalesmen(*workerArr)) // 3
-				cout << "error adding salesmen\n";
+				cout << "Error adding salesmen\n";
 
 			dealership.showCollection(); // 4
 			cout << "--------------------------------------" << endl;
 
 			if (dealership.hasIdenticalVehicle()) { // 5
-				cout << "the dealership has atleast 2 identical vehicles" << endl;
+				cout << "The dealership has atleast 2 identical vehicles" << endl;
 			}
 			else {
-				cout << "no 2 vehicles in the dealership are identical" << endl;
+				cout << "No 2 vehicles in the dealership are identical" << endl;
 			}
 			cout << "--------------------------------------" << endl;
 
-			cout << "the fastest vehicle in the dealership is:\n";
+			cout << "The fastest vehicle in the dealership is:\n";
 			const Vehicle* bestVehicle = dealership.getFastestVehicle(); // 6
 			cout << *bestVehicle << endl;
 
 			cout << "Selling collection!" << endl;
 			dealership.sellCollection(); // 7
-			cout << "Monthly profit:" << endl;
+			cout << "Dealership total monthly profit:" << endl;
 			cout << dealership.getMonthlyProfit() << endl;
 			cout << "--------------------------------------" << endl;
 
 			dealership.showCollection();
 			cout << "--------------------------------------" << endl;
-			cout << "the best worker in the dealership is:\n";
+			cout << "The best worker in the dealership is:\n";
 			dealership.showBestWorker(); // 8
 		}
 

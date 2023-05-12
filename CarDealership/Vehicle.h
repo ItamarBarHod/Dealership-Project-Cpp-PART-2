@@ -1,5 +1,5 @@
+#pragma once
 #include <iostream>
-#include "General.h"
 
 typedef enum { sfBoat, sfCar, sfSuperBoatCar, eNofSFactor } sellFactor;
 typedef enum { eWhite, eBlack, eBlue, eRed, eYellow, ePurple, eNofColor } COLOR;

@@ -134,7 +134,6 @@
     <ClInclude Include="Boat.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="Car.h" />
-    <ClInclude Include="General.h" />
     <ClInclude Include="VehicleDealership.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="Address.h" />
