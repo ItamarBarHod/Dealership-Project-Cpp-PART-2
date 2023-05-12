@@ -11,7 +11,7 @@ protected:
 	void toOs(std::ostream& out) const;
 
 public:
-	SuperBoatCar(const char* companyName, COLOR color, unsigned price, int drivingSpeed, unsigned numOfWheels, int sailingSpeed, unsigned numOfSails);
+	SuperBoatCar(const char* companyName, COLOR color, float price, int drivingSpeed, unsigned numOfWheels, int sailingSpeed, unsigned numOfSails);
 	void setPrice() override;
 	bool operator>(const Vehicle& v);
 	int getSpeed() const override; // MAX(sailspeed, driveSpeed)

@@ -18,7 +18,7 @@ protected:
 
 public:
 
-	Vehicle(const char* companyName, COLOR color, unsigned price);
+	Vehicle(const char* companyName, COLOR color, float price);
 	Vehicle(const Vehicle& other);
 	Vehicle(Vehicle&& other);
 	const Vehicle& operator=(const Vehicle& other);

@@ -11,7 +11,7 @@ protected:
 	virtual void toOs(std::ostream& out) const;
 
 public:
-	Car(const char* companyName, COLOR color, unsigned price, int drivingSpeed, unsigned numOfWheels);
+	Car(const char* companyName, COLOR color, float price, int drivingSpeed, unsigned numOfWheels);
 
 	virtual bool operator>(const Vehicle& v);
 	virtual void setPrice();
