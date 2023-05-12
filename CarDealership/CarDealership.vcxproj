@@ -137,7 +137,7 @@
     <ClInclude Include="General.h" />
     <ClInclude Include="VehicleDealership.h" />
     <ClInclude Include="Date.h" />
-    <ClInclude Include="Location.h" />
+    <ClInclude Include="Address.h" />
     <ClInclude Include="Salesman.h" />
     <ClInclude Include="SuperBoatCar.h" />
     <ClInclude Include="Vehicle.h" />

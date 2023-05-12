@@ -8,27 +8,32 @@ class VehicleDealership {
 private:
 	char name[MAX_DS_NAME];
 	int monthlyProfit;
-	Building hall;
+	Building& place;
 	Salesman* salesmanArr;
 	unsigned salesmanCount;
-	Vehicle* vehicleArr; // size is hall->getCapacity;
+	unsigned maxSalesman;
+	Vehicle* vehicleArr; // size is place->getCapacity;
 	unsigned vehicleCount;
+	unsigned maxVehicles;
 public:
-	VehicleDealership(const char* name, Building& hall, int maxWorkers);
+	VehicleDealership(const char* name, Building& place, int maxWorkers);
 	VehicleDealership(const VehicleDealership& other) = delete;
 	VehicleDealership(VehicleDealership&& other) = delete;
 	~VehicleDealership();
 
 	int getMonthlyProfit() const;
-	bool addSalesman(Salesman& s); // monthly profit -= salesman salary
-	bool buyVehicle(Vehicle& v); // monthlyprofit -= vehicle price
+	bool addRandomVehicles(const Vehicle** vehicleArr);
+	bool hireRandomSalesmen(const Salesman& workerArr);
+
+	bool addSalesman(const Salesman& s); // monthly profit -= salesman salary
+	bool buyVehicle(const Vehicle& v); // monthlyprofit -= vehicle price
 	// setting price by factor
 	void showCollection() const; //using vehicle <<
-	Salesman& getRandomSalesman() const;
-	Vehicle& findVehicle(int money) const; // check closest price
-	void showIdenticalVehicles() const; // using vehicle ==
-	void sellVehicle(const Vehicle& v); // check exist, add profit, remove from array
-	void showFastestVehicle() const; // using vehicle > (speed compare)
+
+	bool hasIdenticalVehicle() const; // using vehicle ==
+	void sellCollection(); // using sellvehicle
+	void sellVehicle(); // monthly profit += vehicle price after factor, delete vehicle from array
+	const Vehicle* getFastestVehicle() const; // using vehicle > (speed compare)
 	void showBestWorker() const; // using worker << and >=
 
 };

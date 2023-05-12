@@ -1,6 +1,23 @@
 #pragma once
+#include "VehicleDealership.h"
 
-typedef enum { sfBoat, sfCar, sfSuperBoatCar, eNofSFactor } sellFactor;
-typedef enum { eWhite, eBlack, eBlue, eRed, eNofColor } COLOR;
-const static char* colorArr[eNofColor] = { "white", "black", "blue", "red" };
-const static float factorArr[eNofSFactor] = { 1.2, 1.3, 1.5 };
+void hireRandomWorkers(VehicleDealership& dealership, Salesman* workerArr, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		int random = rand() % size;
+		if (!dealership.addSalesman(workerArr[random]))
+			throw "Error initializing workers";
+	}
+}
+
+void buyRandomVehicles(VehicleDealership& dealership, Vehicle** vehicleArr, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		int random = rand() % size;
+		if (!dealership.buyVehicle(*vehicleArr[random]))
+			throw "Error initializing vehicles";
+	}
+}
+

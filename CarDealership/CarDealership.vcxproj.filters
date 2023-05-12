@@ -29,7 +29,7 @@
     <ClInclude Include="Worker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Location.h">
+    <ClInclude Include="Address.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Salesman.h">

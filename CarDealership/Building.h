@@ -1,11 +1,12 @@
-#include "Location.h"
+#include "Address.h"
 
-class Building : public Location {
+class Building : public Address {
 private:
-	unsigned vehicleCapacity;
-	unsigned cost;
+	int vehicleCapacity;
+	int cost;
 public:
-	Building(const char* city, const char* street, unsigned houseNum, unsigned vehicleCapacity, unsigned cost);
+	Building(const char* city, const char* street, unsigned houseNum, int vehicleCapacity, int cost);
+	Building(Address& loc, int vehicleCapacity, int cost);
 
 	unsigned getCapacity() const;
 	unsigned getCost() const;

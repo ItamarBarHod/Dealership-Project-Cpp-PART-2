@@ -6,7 +6,5 @@ private:
 	unsigned month;
 	unsigned day;
 public:
-	Date();
-	Date(int year, unsigned month, unsigned day);
-	friend std::istream& operator>>(std::istream& in, const Date& date);
+	Date(int year = 1995, unsigned month = 7, unsigned day = 27);
 };
