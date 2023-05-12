@@ -5,7 +5,7 @@ class Vehicle {
 public:
 	typedef enum { sfBoat, sfCar, sfSuperBoatCar, eNofSFactor } sellFactor;
 	typedef enum { eWhite, eBlack, eBlue, eRed, eYellow, ePurple, eNofColor } COLOR;
-	const float factorArr[eNofSFactor] = { 1.4, 1.3, 1.7 };
+	const float factorArr[eNofSFactor] = { 1.4, 1.3, 2 };
 	const char* colorArr[eNofColor] = { "White", "Black", "Blue", "Red", "Yellow", "Purple" };
 protected:
 	const char* companyName;
@@ -34,5 +34,4 @@ public:
 	bool setColor(COLOR color);
 	virtual const char* getCompanyName() const final;
 	virtual void setPrice() = 0;
-	virtual int getSpeed() const = 0;
 };

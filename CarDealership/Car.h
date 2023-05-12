@@ -14,6 +14,5 @@ public:
 	Car(const char* companyName, COLOR color, float price, int drivingSpeed, unsigned numOfWheels);
 
 	virtual void setPrice();
-	virtual int getSpeed() const;
 	virtual int getNumOfWheels() const;
 };
