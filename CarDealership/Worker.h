@@ -5,7 +5,7 @@
 #include "Address.h"
 
 class Worker {
-private:
+protected:
 	static unsigned id;
 	unsigned workerID;
 	char* name;

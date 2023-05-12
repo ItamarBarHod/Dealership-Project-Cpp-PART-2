@@ -1,16 +1,16 @@
 #pragma once
 #include <iostream>
 
-typedef enum { sfBoat, sfCar, sfSuperBoatCar, eNofSFactor } sellFactor;
-typedef enum { eWhite, eBlack, eBlue, eRed, eYellow, ePurple, eNofColor } COLOR;
-const static float factorArr[eNofSFactor] = { 1.4, 1.3, 1.7 };
-const static char* colorArr[eNofColor] = { "White", "Black", "Blue", "Red", "Yellow", "Purple" };
-
 class Vehicle {
+public:
+	typedef enum { sfBoat, sfCar, sfSuperBoatCar, eNofSFactor } sellFactor;
+	typedef enum { eWhite, eBlack, eBlue, eRed, eYellow, ePurple, eNofColor } COLOR;
+	const float factorArr[eNofSFactor] = { 1.4, 1.3, 1.7 };
+	const char* colorArr[eNofColor] = { "White", "Black", "Blue", "Red", "Yellow", "Purple" };
 protected:
 	const char* companyName;
 	COLOR color;
-	unsigned price;
+	float price;
 	const float sellFactor;
 
 protected:
@@ -27,9 +27,9 @@ public:
 
 	virtual friend std::ostream& operator<<(std::ostream& out, const Vehicle& v);
 	virtual bool operator>(const Vehicle& other) = 0;
-	bool operator==(const Vehicle& other); // if same color and company
+	virtual bool operator==(const Vehicle& other) = 0; // if same color and company
 
-	virtual unsigned getPrice() const final;
+	virtual float getPrice() const final;
 	virtual const char* getColor() const final;
 	bool setColor(COLOR color);
 	virtual const char* getCompanyName() const final;
