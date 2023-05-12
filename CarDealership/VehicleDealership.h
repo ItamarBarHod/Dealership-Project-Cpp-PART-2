@@ -14,7 +14,7 @@ private:
 	Vehicle* vehicleArr; // size is hall->getCapacity;
 	unsigned vehicleCount;
 public:
-	VehicleDealership(const char* name, Building& hall, int maxWorkers, int maxVehicles);
+	VehicleDealership(const char* name, Building& hall, int maxWorkers);
 	VehicleDealership(const VehicleDealership& other) = delete;
 	VehicleDealership(VehicleDealership&& other) = delete;
 	~VehicleDealership();
@@ -24,7 +24,7 @@ public:
 	bool buyVehicle(Vehicle& v); // monthlyprofit -= vehicle price
 	// setting price by factor
 	void showCollection() const; //using vehicle <<
-	const Salesman& getRandomSalesman() const;
+	Salesman& getRandomSalesman() const;
 	Vehicle& findVehicle(int money) const; // check closest price
 	void showIdenticalVehicles() const; // using vehicle ==
 	void sellVehicle(const Vehicle& v); // check exist, add profit, remove from array

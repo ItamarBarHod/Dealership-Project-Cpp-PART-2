@@ -3,7 +3,7 @@
 #include "Location.h"
 
 class Worker {
-protected:
+private:
 	char* name;
 	Location* address;
 	Date birthDay;
