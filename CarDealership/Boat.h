@@ -13,8 +13,6 @@ protected:
 public:
 	Boat(const char* companyName, COLOR color, float price, int sailingSpeed, int numOfSails);
 
-	virtual bool operator>(const Vehicle& v);
-
 	virtual int getSpeed() const;
 	virtual int getNumOfSails() const;
 	virtual void setPrice();

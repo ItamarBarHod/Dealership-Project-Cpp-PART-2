@@ -26,8 +26,8 @@ public:
 	virtual ~Vehicle();
 
 	virtual friend std::ostream& operator<<(std::ostream& out, const Vehicle& v);
-	virtual bool operator>(const Vehicle& other) = 0;
-	virtual bool operator==(const Vehicle& other);
+	virtual bool operator>(const Vehicle& other) final;
+	virtual bool operator==(const Vehicle& other) final;
 
 	virtual float getPrice() const final;
 	virtual const char* getColor() const final;

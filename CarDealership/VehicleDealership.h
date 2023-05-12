@@ -38,7 +38,7 @@ public:
 	bool hasIdenticalVehicle() const; // using vehicle ==
 	void sellCollection(); // using sellvehicle
 	void sellVehicle(); // monthly profit += vehicle price after factor, delete vehicle from array
-	const Vehicle* getFastestVehicle() const; // using vehicle > (speed compare)
+	const Vehicle* getBestVehicle() const; // using vehicle > (price compare)
 	const Salesman& getBestWorker() const; // using worker << and >=
 
 };

@@ -75,8 +75,8 @@ int main()
 			}
 			cout << "--------------------------------------" << endl;
 
-			cout << "The fastest vehicle in the dealership is:\n";
-			const Vehicle* bestVehicle = dealership.getFastestVehicle(); // 6
+			cout << "The best vehicle in the dealership is:\n";
+			const Vehicle* bestVehicle = dealership.getBestVehicle(); // 6
 			cout << *bestVehicle << endl;
 
 			cout << "Selling collection!" << endl;
