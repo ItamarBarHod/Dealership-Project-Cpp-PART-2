@@ -88,7 +88,8 @@ int main()
 			dealership.showCollection();
 			cout << "--------------------------------------" << endl;
 			cout << "The best worker in the dealership is:\n";
-			dealership.showBestWorker(); // 8
+			Salesman bestWorker = dealership.getBestWorker(); // 8
+			cout << bestWorker << endl;
 		}
 
 		for (int i = 0; i < AVAILABLE_VEHICLES; i++)

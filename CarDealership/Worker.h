@@ -12,6 +12,10 @@ protected:
 	Address* address;
 	Date birthday;
 	int salary;
+
+protected:
+	virtual void toOs(std::ostream& out) const;
+
 public:
 	Worker(const char* name, Address& address, Date& birthday, int salary);
 	Worker(const Worker& other);
@@ -20,7 +24,7 @@ public:
 	Worker& operator=(Worker&& other);
 	virtual ~Worker();
 
-	friend virtual std::ostream& operator<<(std::ostream& out, const Worker& worker) = 0;
+	friend virtual std::ostream& operator<<(std::ostream& out, const Worker& worker);
 	int getSalary() const;
 	void setSalary(unsigned salary);
 	const Date& getBirthday() const;

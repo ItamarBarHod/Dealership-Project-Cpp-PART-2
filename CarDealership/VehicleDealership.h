@@ -39,6 +39,6 @@ public:
 	void sellCollection(); // using sellvehicle
 	void sellVehicle(); // monthly profit += vehicle price after factor, delete vehicle from array
 	const Vehicle* getFastestVehicle() const; // using vehicle > (speed compare)
-	void showBestWorker() const; // using worker << and >=
+	const Salesman& getBestWorker() const; // using worker << and >=
 
 };
