@@ -14,7 +14,6 @@ public:
 	Boat(const char* companyName, COLOR color, unsigned price, int sailingSpeed, int numOfSails);
 
 	virtual bool operator>(const Vehicle& v);
-	virtual bool operator==(const Vehicle& other);
 
 	virtual int getSpeed() const;
 	virtual int getNumOfSails() const;
