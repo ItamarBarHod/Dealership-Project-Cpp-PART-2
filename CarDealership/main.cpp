@@ -5,7 +5,7 @@
 
 int main()
 {
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	using std::cout;
 	using std::cin;
 	using std::endl;
@@ -65,7 +65,7 @@ int main()
 				cout << "Error adding salesmen\n";
 
 			cout << "Monthly profit after workers + vehicles:" << endl;
-			cout << dealership.getMonthlyProfit() << endl; // 1
+			cout << dealership.getMonthlyProfit() << endl;
 
 			dealership.showCollection(); // 4
 			cout << "--------------------------------------" << endl;

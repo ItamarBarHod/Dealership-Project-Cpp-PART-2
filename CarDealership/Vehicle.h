@@ -5,7 +5,7 @@ class Vehicle {
 public:
 	typedef enum { sfBoat, sfCar, sfSuperBoatCar, eNofSFactor } sellFactor;
 	typedef enum { eWhite, eBlack, eBlue, eRed, eYellow, ePurple, eNofColor } COLOR;
-	const float factorArr[eNofSFactor] = { 1.4, 1.3, 2 };
+	const double factorArr[eNofSFactor] = { 1.4, 1.3, 2 };
 	const char* colorArr[eNofColor] = { "White", "Black", "Blue", "Red", "Yellow", "Purple" };
 protected:
 	const char* companyName;
