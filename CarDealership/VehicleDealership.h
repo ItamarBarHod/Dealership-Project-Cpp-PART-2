@@ -28,10 +28,10 @@ public:
 
 	double getMonthlyProfit() const;
 	bool addRandomVehicles(Vehicle** vehicleArr);
-	bool hireRandomSalesmen(const Salesman& workerArr);
+	bool hireRandomSalesmen(const Salesman* workerArr);
 
 	bool addSalesman(const Salesman& s);
-	bool buyVehicle(const Vehicle& v);
+	bool buyVehicle(const Vehicle* v);
 	void showCollection() const;
 
 	bool hasIdenticalVehicle() const;

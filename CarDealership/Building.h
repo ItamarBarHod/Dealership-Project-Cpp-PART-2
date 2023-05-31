@@ -2,10 +2,11 @@
 
 #include "Address.h"
 
-class Building : public Address {
+class Building {
 private:
 	int vehicleCapacity;
 	int cost;
+	Address address;
 public:
 	Building(const char* city, const char* street, unsigned houseNum, int vehicleCapacity, int cost);
 	Building(Address& loc, int vehicleCapacity, int cost);
