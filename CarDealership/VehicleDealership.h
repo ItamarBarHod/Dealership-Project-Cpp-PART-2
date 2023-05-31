@@ -17,7 +17,7 @@ private:
 	Salesman* salesmanArr;
 	unsigned salesmanCount;
 	unsigned maxSalesman;
-	Vehicle* vehicleArr;
+	Vehicle** vehicleArr;
 	unsigned vehicleCount;
 	unsigned maxVehicles;
 public:
