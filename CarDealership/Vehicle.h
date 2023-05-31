@@ -5,7 +5,7 @@ class Vehicle {
 public:
 	typedef enum { sfBoat, sfCar, sfSuperBoatCar, eNofSFactor } sellFactor;
 	typedef enum { eWhite, eBlack, eBlue, eRed, eYellow, ePurple, eNofColor } COLOR;
-	const double factorArr[eNofSFactor] = { 1.4, 1.3, 2 };
+	const float factorArr[eNofSFactor] = { 1.4, 1.3, 2 };
 	const char* colorArr[eNofColor] = { "White", "Black", "Blue", "Red", "Yellow", "Purple" };
 protected:
 	const char* companyName;
@@ -20,10 +20,8 @@ protected:
 public:
 
 	Vehicle(const char* companyName, COLOR color, float price);
-	Vehicle(const Vehicle& other);
-	Vehicle(Vehicle&& other);
-	const Vehicle& operator=(const Vehicle& other);
-	const Vehicle& operator=(Vehicle&& other);
+	Vehicle(const Vehicle& other) = delete;
+	Vehicle& operator = (const Vehicle& other) = delete;
 	virtual ~Vehicle();
 
 	friend std::ostream& operator<<(std::ostream& out, const Vehicle& v);
