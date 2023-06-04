@@ -23,3 +23,8 @@ public:
 	unsigned getHouseNum() const;
 
 };
+
+std::istream& operator>>(std::istream& in, Address& date)
+{
+
+}
