@@ -129,19 +129,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Address.cpp" />
+    <ClCompile Include="Building.cpp" />
+    <ClCompile Include="Date.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Salesman.cpp" />
+    <ClCompile Include="Worker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Boat.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="Car.h" />
     <ClInclude Include="General.h" />
+    <ClInclude Include="VehicleManager.h" />
     <ClInclude Include="VehicleDealership.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="Address.h" />
     <ClInclude Include="Salesman.h" />
     <ClInclude Include="SuperBoatCar.h" />
     <ClInclude Include="Vehicle.h" />
+    <ClInclude Include="VehicleFactory.h" />
     <ClInclude Include="Worker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

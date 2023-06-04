@@ -2,15 +2,20 @@
 
 #include "Worker.h"
 
+class Date;
+
 class Salesman : public Worker {
 private:
 	unsigned numOfDeals;
 	double totalSales;
+
+protected:
+	std::ostream& print(std::ostream& out) const;
+
 public:
 	Salesman();
 	Salesman(const char* name, const Address* address, Date& birthday, int salary, unsigned numOfAddresses);
 
-	friend  std::ostream& operator<<(std::ostream& out, const Salesman& Salesman);
-	double getAverageProfit() const; // totalSales / numOfDeals
-	bool operator>=(const Salesman& other);
+	const double getAverageProfit() const;
+	bool operator>=(const Salesman& other) const { return getAverageProfit() >= other.getAverageProfit(); }
 };
