@@ -40,7 +40,6 @@ public:
 
 unsigned Worker::id = 1000;
 
-
 std::ostream& operator<<(std::ostream& out, const Worker& worker)
 {
 	worker.print(out);
@@ -49,5 +48,6 @@ std::ostream& operator<<(std::ostream& out, const Worker& worker)
 
 std::istream& operator>>(std::istream& in, Worker& worker)
 {
+	worker.workerID = worker.id++;
 	return in;
 }

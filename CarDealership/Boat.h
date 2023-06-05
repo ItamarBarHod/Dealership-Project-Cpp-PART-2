@@ -8,13 +8,14 @@ private:
 	int numOfSails;
 
 protected:
-	virtual void toOs(std::ostream& out) const;
-	virtual void setPrice();
+	virtual std::ostream& toOs(std::ostream& out) const override;
+	virtual void setPrice() override;
 
 public:
-	Boat(const char* companyName, COLOR color, float price, int sailingSpeed, int numOfSails);
+	Boat(const char* companyName, eColor, float price, int sailingSpeed, int numOfSails);
 
 	virtual int getNumOfSails() const;
 	virtual int getSpeed() const;
+	virtual eVehicle getType() const override { return eBoat; }
 
 };

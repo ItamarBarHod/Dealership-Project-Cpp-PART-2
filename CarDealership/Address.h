@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <fstream>
 
 class Address {
 private:
@@ -19,7 +20,8 @@ public:
 
 
 	friend std::istream& operator>>(std::istream& in, Address& address);
-	friend std::ostream& operator<<(std::ostream& out, Address& address);
+	friend std::ostream& operator<<(std::ostream& out, const Address& address);
+
 	void setStreet(const char* street);
 	void setCity(const char* street);
 	const char* getCity() const { return city; }
@@ -31,16 +33,32 @@ public:
 std::istream& operator>>(std::istream& in, Address& address)
 {
 	char buffer[100];
-	in.getline(buffer, 100);
-	address.city = _strdup(buffer);
-	in.getline(buffer, 100);
-	address.street = _strdup(buffer);
-	in >> address.houseNum;
+	if (typeid(in) == typeid(std::ifstream))
+	{
+		char delimiter;
+		in >> buffer >> delimiter;
+		address.city = _strdup(buffer);
+		in >> buffer >> delimiter >> address.houseNum;
+		address.street = _strdup(buffer);
+	}
+	else {
+		in.getline(buffer, 100);
+		address.city = _strdup(buffer);
+		in.getline(buffer, 100);
+		address.street = _strdup(buffer);
+		in >> address.houseNum;
+	}
 	return in;
 }
 
-std::ostream& operator<<(std::ostream& out, Address& address)
+std::ostream& operator<<(std::ostream& out, const Address& address)
 {
-	out << "City: " << address.city << "Street: " << address.street << "House Number: " << address.houseNum << std::endl;
+	if (typeid(out) == typeid(std::ofstream))
+	{
+		out << address.city << " " << address.street << " " << address.houseNum << std::endl;
+	}
+	else {
+		out << "City: " << address.city << "Street: " << address.street << "House Number: " << address.houseNum << std::endl;
+	}
 	return out;
 }

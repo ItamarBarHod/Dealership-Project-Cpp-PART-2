@@ -40,7 +40,7 @@ int main()
 			cout << "Monthly profit after adding workers + vehicles: ";
 			cout << dealership.getMonthlyProfit() << endl; // 1
 
-			dealership.showCollection(); // 4
+			dealership.showDealership(); // 4
 			cout << "--------------------------------------" << endl;
 
 			if (dealership.hasIdenticalVehicle()) { // 5
@@ -63,10 +63,10 @@ int main()
 			cout << dealership.getMonthlyProfit() << endl;
 			cout << "--------------------------------------" << endl;
 
-			dealership.showCollection();
+			dealership.showDealership();
 			cout << "--------------------------------------" << endl;
 			cout << "The best worker in the dealership is:\n";
-			const Salesman bestWorker = dealership.getBestWorker(); // 8
+			const Salesman* bestWorker = dealership.getBestWorker(); // 8
 			cout << bestWorker << endl;
 		}
 

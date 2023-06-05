@@ -5,6 +5,6 @@ Building::Building(const char* city, const char* street, unsigned houseNum, int 
 {
 }
 
-Building::Building(Address& loc, int vehicleCapacity, int cost) : address(loc), vehicleCapacity(vehicleCapacity), cost(cost)
+Building::Building(const Address& loc, int vehicleCapacity, int cost) : address(loc), vehicleCapacity(vehicleCapacity), cost(cost)
 {
 }

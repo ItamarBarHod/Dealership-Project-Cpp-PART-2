@@ -40,8 +40,10 @@ const Address& Address::operator=(Address&& other)
 }
 Address::~Address()
 {
-	delete[] city;
-	delete[] street;
+	if (city)
+		delete[] city;
+	if (street)
+		delete[] street;
 }
 
 void Address::setStreet(const char* str)

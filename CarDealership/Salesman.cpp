@@ -1,5 +1,7 @@
 #include "Salesman.h"
 
+Salesman::Salesman() {};
+
 Salesman::Salesman(const char* name, const Address* address, Date& birthday, int salary, unsigned numOfAddresses)
 	: Worker(name, address, birthday, salary, numOfAddresses), totalSales(0), numOfDeals(0)
 {

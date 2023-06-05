@@ -8,12 +8,13 @@ private:
 	unsigned numOfWheels;
 
 protected:
-	virtual void toOs(std::ostream& out) const;
-	virtual void setPrice();
+	virtual std::ostream& toOs(std::ostream& out) const override;
+	virtual void setPrice() override;
 
 public:
-	Car(const char* companyName, COLOR color, float price, int drivingSpeed, unsigned numOfWheels);
+	Car(const char* companyName, eColor color, float price, int drivingSpeed, unsigned numOfWheels);
 
 	virtual int getNumOfWheels() const;
 	virtual int getSpeed() const;
+	virtual eVehicle getType() const override { return eCar; }
 };
