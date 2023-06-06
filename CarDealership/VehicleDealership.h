@@ -3,11 +3,7 @@
 #include <iostream>
 #include "Building.h"
 #include "Salesman.h"
-#include "Vehicle.h"
-#include "Car.h"
-#include "Boat.h"
 #include "SuperBoatCar.h"
-
 
 #define MAX_DS_NAME 20
 
@@ -15,31 +11,39 @@ class VehicleDealership {
 private:
 	char name[MAX_DS_NAME];
 	double monthlyProfit;
-	const Building& place;
+	Building place;
 	Salesman* salesmanArr;
-	unsigned salesmanCount;
-	unsigned maxSalesman;
+	int salesmanCount;
+	int maxSalesman;
 	Vehicle** vehicleArr;
-	unsigned vehicleCount;
-	unsigned maxVehicles;
-public:
-	VehicleDealership(const char* name, const Building& place, int maxSalesman);
+	int vehicleCount;
+	int maxVehicles;
+
+private:
 	VehicleDealership(const VehicleDealership& other) = delete;
 	VehicleDealership(VehicleDealership&& other) = delete;
+	void sellVehicle();
+
+public:
+	VehicleDealership();
+	VehicleDealership(std::ifstream& inFile);
+	VehicleDealership(const char* name, const Building& place, int maxSalesman) throw(char*, std::bad_alloc&);
 	~VehicleDealership();
+
+	friend std::ifstream& operator>>(std::ifstream& in, VehicleDealership& dealership); // only ifstream
+	friend std::ostream& operator<<(std::ostream& out, const VehicleDealership& dealership);
 
 	double getMonthlyProfit() const { return monthlyProfit; }
 
-	bool addRandomVehicles(Vehicle** vehicleArr);
-	bool hireRandomSalesmen(const Salesman* workerArr);
+	bool addVehicle(const Vehicle& vehicle);
+	bool addSalesman(const Salesman& salesman);
 
-	bool addSalesman(const Salesman& s);
-	bool buyVehicle(const Vehicle* v);
 	void showDealership() const;
 
-	bool hasIdenticalVehicle() const;
 	void sellCollection();
-	void sellVehicle();
+
+	Vehicle* hasIdenticalVehicles() const;
+
 	const Vehicle* getBestVehicle() const;
 	const Salesman* getBestWorker() const;
 

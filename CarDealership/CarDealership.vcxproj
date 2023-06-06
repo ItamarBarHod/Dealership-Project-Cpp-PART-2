@@ -129,12 +129,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Address.cpp" />
+    <ClCompile Include="Boat.cpp" />
     <ClCompile Include="Building.cpp" />
+    <ClCompile Include="Car.cpp" />
     <ClCompile Include="Date.cpp" />
+    <ClCompile Include="General.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Salesman.cpp" />
+    <ClCompile Include="SuperBoatCar.cpp" />
     <ClCompile Include="Vehicle.cpp" />
     <ClCompile Include="VehicleDealership.cpp" />
+    <ClCompile Include="DealershipFactory.cpp" />
     <ClCompile Include="VehicleManager.cpp" />
     <ClCompile Include="Worker.cpp" />
   </ItemGroup>
@@ -143,14 +148,14 @@
     <ClInclude Include="Building.h" />
     <ClInclude Include="Car.h" />
     <ClInclude Include="General.h" />
-    <ClInclude Include="VehicleManager.h" />
     <ClInclude Include="VehicleDealership.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="Address.h" />
     <ClInclude Include="Salesman.h" />
     <ClInclude Include="SuperBoatCar.h" />
     <ClInclude Include="Vehicle.h" />
-    <ClInclude Include="VehicleFactory.h" />
+    <ClInclude Include="DealershipFactory.h" />
+    <ClInclude Include="VehicleManager.h" />
     <ClInclude Include="Worker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

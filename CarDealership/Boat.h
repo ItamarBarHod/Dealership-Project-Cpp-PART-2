@@ -3,19 +3,30 @@
 #include "Vehicle.h"
 
 class Boat : virtual public Vehicle {
-private:
+protected:
 	int sailingSpeed;
 	int numOfSails;
 
 protected:
-	virtual std::ostream& toOs(std::ostream& out) const override;
-	virtual void setPrice() override;
+	virtual std::ostream& print(std::ostream& out) const override;
+	virtual std::istream& read(std::istream& in) override;
 
 public:
-	Boat(const char* companyName, eColor, float price, int sailingSpeed, int numOfSails);
+	Boat();
+	Boat(std::ifstream& inFile);
+	Boat(const Boat& other);
+	Boat(Boat&& other) noexcept;
+	Boat(const char* companyName, eColor color, float price, int sailingSpeed, int numOfSails);
+	virtual ~Boat();
 
-	virtual int getNumOfSails() const;
-	virtual int getSpeed() const;
-	virtual eVehicle getType() const override { return eBoat; }
+	Boat& operator=(const Boat& other);
+	Boat& operator=(Boat&& other) noexcept;
 
+
+	virtual int getNumOfSails() const { return numOfSails; }
+	virtual int getSpeed() const { return sailingSpeed; }
+
+	virtual void raisePrice() override;
+
+	Vehicle* Clone() const { return new Boat(*this); }
 };
