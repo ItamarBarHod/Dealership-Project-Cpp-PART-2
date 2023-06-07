@@ -14,7 +14,7 @@ protected:
 
 public:
 	Car();
-	Car(std::ifstream& inFile);
+	Car(std::istream& in);
 	Car(const Car& other);
 	Car(Car&& other) noexcept;
 	Car(const char* companyName, eColor color, float price, int drivingSpeed, unsigned numOfWheels);

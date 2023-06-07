@@ -13,7 +13,7 @@ private:
 	unsigned month;
 	unsigned day;
 public:
-	Date();
+	Date(int year = 1995, int month = 7, int day = 27);
 	Date(std::ifstream& file);
 	Date(int year, unsigned month, unsigned day);
 

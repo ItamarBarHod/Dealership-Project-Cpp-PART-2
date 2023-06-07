@@ -3,9 +3,10 @@
 Address::Address() : city(nullptr), street(nullptr), houseNum(0)
 {
 }
-Address::Address(std::ifstream& inFile) : city(nullptr), street(nullptr), houseNum(0)
+
+Address::Address(std::istream& in) : city(nullptr), street(nullptr), houseNum(0)
 {
-	inFile >> *this;
+	in >> *this;
 }
 Address::Address(const char* city, const char* street, unsigned houseNum) : houseNum(houseNum)
 {

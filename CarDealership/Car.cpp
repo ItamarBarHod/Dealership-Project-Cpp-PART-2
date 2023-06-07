@@ -1,12 +1,12 @@
 #include "Car.h"
 
-Car::Car()
+Car::Car() : drivingSpeed(0), numOfWheels(0)
 {
 }
 
-Car::Car(std::ifstream& inFile) : Vehicle(inFile)
+Car::Car(std::istream& in) : Vehicle(in)
 {
-	inFile >> *this;
+	in >> *this;
 }
 
 Car::Car(const Car& other) : Vehicle(other)

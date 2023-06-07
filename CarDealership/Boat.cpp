@@ -1,12 +1,12 @@
 #include "Boat.h"
 
-Boat::Boat() : numOfSails(0), sailingSpeed(0)
+Boat::Boat() : sailingSpeed(0), numOfSails(0)
 {
 }
 
-Boat::Boat(std::ifstream& inFile) : Vehicle(inFile), numOfSails(0), sailingSpeed(0)
+Boat::Boat(std::istream& in) : Vehicle(in), numOfSails(0), sailingSpeed(0)
 {
-	inFile >> *this;
+	in >> *this;
 }
 
 Boat::Boat(const Boat& other) : Vehicle(other), numOfSails(0), sailingSpeed(0)

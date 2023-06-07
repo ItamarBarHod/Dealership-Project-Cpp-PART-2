@@ -22,7 +22,7 @@ protected:
 
 public:
 	Vehicle();
-	Vehicle(std::ifstream& inFile);
+	Vehicle(std::istream& in);
 	Vehicle(const Vehicle& other);
 	Vehicle(Vehicle&& other) noexcept;
 	Vehicle(const char* companyName, eColor color, float price);

@@ -1,8 +1,10 @@
 #include "Salesman.h"
 
-Salesman::Salesman() {}
+Salesman::Salesman() : numOfDeals(0), totalSales(0)
+{
+}
 
-Salesman::Salesman(std::istream& in)
+Salesman::Salesman(std::istream& in) : numOfDeals(0), totalSales(0)
 {
 	in >> *this;
 }

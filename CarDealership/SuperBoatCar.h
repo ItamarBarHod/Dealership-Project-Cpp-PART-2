@@ -13,7 +13,7 @@ protected:
 
 public:
 	SuperBoatCar();
-	SuperBoatCar(std::ifstream& inFile);
+	SuperBoatCar(std::istream& in);
 	SuperBoatCar(const SuperBoatCar& other);
 	SuperBoatCar(SuperBoatCar&& other) noexcept;
 	SuperBoatCar(const char* companyName, eColor color, float price, int drivingSpeed, unsigned numOfWheels, int sailingSpeed, unsigned numOfSails);

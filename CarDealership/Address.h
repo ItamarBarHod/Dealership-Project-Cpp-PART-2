@@ -11,7 +11,7 @@ private:
 
 public:
 	Address();
-	Address(std::ifstream& inFile);
+	Address(std::istream& in);
 	Address(const char* city, const char* street, unsigned houseNum);
 	Address(const Address& other);
 	Address(Address&& other) noexcept;

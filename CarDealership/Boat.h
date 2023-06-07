@@ -13,7 +13,7 @@ protected:
 
 public:
 	Boat();
-	Boat(std::ifstream& inFile);
+	Boat(std::istream& in);
 	Boat(const Boat& other);
 	Boat(Boat&& other) noexcept;
 	Boat(const char* companyName, eColor color, float price, int sailingSpeed, int numOfSails);

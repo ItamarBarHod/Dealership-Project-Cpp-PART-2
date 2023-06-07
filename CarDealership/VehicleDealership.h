@@ -26,11 +26,11 @@ private:
 
 public:
 	VehicleDealership();
-	VehicleDealership(std::ifstream& inFile);
+	VehicleDealership(std::istream& in);
 	VehicleDealership(const char* name, const Building& place, int maxSalesman) throw(char*, std::bad_alloc&);
 	~VehicleDealership();
 
-	friend std::ifstream& operator>>(std::ifstream& in, VehicleDealership& dealership); // only ifstream
+	friend std::istream& operator>>(std::istream& in, VehicleDealership& dealership);
 	friend std::ostream& operator<<(std::ostream& out, const VehicleDealership& dealership);
 
 	double getMonthlyProfit() const { return monthlyProfit; }

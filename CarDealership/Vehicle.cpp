@@ -1,13 +1,13 @@
 #include "General.h"
 #include "Vehicle.h"
 
-Vehicle::Vehicle() : companyName(nullptr), color(Vehicle::eWhite), price(0)
+Vehicle::Vehicle()
 {
 }
 
-Vehicle::Vehicle(std::ifstream& inFile) : companyName(nullptr), color(Vehicle::eWhite), price(0)
+Vehicle::Vehicle(std::istream& in) : companyName(nullptr), color(Vehicle::eWhite), price(0)
 {
-	inFile >> *this;
+	in >> *this;
 }
 
 Vehicle::Vehicle(const char* companyName, eColor color, float price)

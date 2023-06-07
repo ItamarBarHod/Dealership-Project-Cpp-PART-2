@@ -4,9 +4,9 @@ VehicleDealership::VehicleDealership()
 {
 }
 
-VehicleDealership::VehicleDealership(std::ifstream& inFile)
+VehicleDealership::VehicleDealership(std::istream& in)
 {
-	inFile >> *this;
+	in >> *this;
 }
 
 VehicleDealership::VehicleDealership(const char* name, const Building& place, int maxSalesman) noexcept(false)
@@ -62,6 +62,11 @@ bool VehicleDealership::addVehicle(const Vehicle& vehicle)
 	monthlyProfit -= vehicle.getPrice();
 	vehicleArr[vehicleCount]->raisePrice();
 	return true;
+}
+
+bool VehicleDealership::hireRandomSalesmen()
+{
+	return false;
 }
 
 bool VehicleDealership::addSalesman(const Salesman& salesman)
@@ -178,7 +183,7 @@ std::ostream& operator<<(std::ostream& out, const VehicleDealership& dealership)
 	return out;
 }
 
-std::ifstream& operator>>(std::ifstream& in, VehicleDealership& dealership)
+std::istream& operator>>(std::istream& in, VehicleDealership& dealership)
 {
 	in >> dealership.name >> dealership.place >> dealership.monthlyProfit;
 	in >> dealership.maxSalesman >> dealership.salesmanCount;

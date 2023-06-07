@@ -1,10 +1,10 @@
 #include "Building.h"
 
-Building::Building()
+Building::Building() : cost(0), vehicleCapacity(0)
 {
 }
 
-Building::Building(std::ifstream& inFile)
+Building::Building(std::ifstream& inFile) : cost(0), vehicleCapacity(0)
 {
 	inFile >> *this;
 }

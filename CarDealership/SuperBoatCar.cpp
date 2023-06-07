@@ -6,9 +6,9 @@ SuperBoatCar::SuperBoatCar()
 {
 }
 
-SuperBoatCar::SuperBoatCar(std::ifstream& inFile) : Vehicle(inFile)
+SuperBoatCar::SuperBoatCar(std::istream& in) : Vehicle(in)
 {
-	inFile >> *this;
+	in >> *this;
 }
 
 SuperBoatCar::SuperBoatCar(const SuperBoatCar& other)
