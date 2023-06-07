@@ -8,7 +8,6 @@
 class DealershipFactory
 {
 public:
-	static void initDealership(VehicleDealership* VehicleDealership);
 	static Vehicle* createVehicle(int type);
 	static Salesman* createSalesman();
 };

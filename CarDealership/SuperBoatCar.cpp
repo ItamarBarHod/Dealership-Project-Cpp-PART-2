@@ -31,12 +31,12 @@ SuperBoatCar::~SuperBoatCar()
 
 SuperBoatCar& SuperBoatCar::operator=(const SuperBoatCar& other)
 {
-	// TODO: insert return statement here
+	return *this;
 }
 
 SuperBoatCar& SuperBoatCar::operator=(SuperBoatCar&& other) noexcept
 {
-	// TODO: insert return statement here
+	return *this;
 }
 
 void SuperBoatCar::raisePrice()

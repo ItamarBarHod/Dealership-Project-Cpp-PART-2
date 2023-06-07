@@ -28,12 +28,12 @@ Boat::~Boat()
 
 Boat& Boat::operator=(const Boat& other)
 {
-	// TODO: insert return statement here
+	return *this;
 }
 
 Boat& Boat::operator=(Boat&& other) noexcept
 {
-	// TODO: insert return statement here
+	return *this;
 }
 
 

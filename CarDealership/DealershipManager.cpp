@@ -6,18 +6,18 @@ DealershipManager::~DealershipManager()
 {
 }
 
-VehicleDealership* DealershipManager::getInstance() throw(std::bad_alloc&)
+VehicleDealership* DealershipManager::getInstance()
 {
 	if (!vecDealership) {
 		try {
 			std::ifstream inFile(fileName);
 			if (!inFile) {
-				DealershipFactory::initDealership(vecDealership);
+				vecDealership = new VehicleDealership(std::cin);
 			}
 			else {
 				vecDealership = new VehicleDealership(inFile);
+				inFile.close();
 			}
-			inFile.close();
 		}
 		catch (std::bad_alloc& e) {
 			throw;
@@ -27,6 +27,14 @@ VehicleDealership* DealershipManager::getInstance() throw(std::bad_alloc&)
 		}
 	}
 	return vecDealership;
+}
+
+void DealershipManager::addSalesman()
+{
+}
+
+void DealershipManager::addVehicle()
+{
 }
 
 void DealershipManager::releaseInstance()

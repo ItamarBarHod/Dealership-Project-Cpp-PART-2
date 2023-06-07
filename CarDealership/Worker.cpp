@@ -2,13 +2,22 @@
 
 unsigned Worker::id = 1000;
 
-Worker::Worker() : name(nullptr), address(nullptr), salary(0), numOfAddresses(0)
+Worker::Worker(std::istream& in) : address(nullptr)
 {
-}
-
-Worker::Worker(std::istream& in)
-{
-	in >> *this;
+	char buffer[100];
+	in >> workerID;
+	in.getline(buffer, 100);
+	name = _strdup(buffer);
+	in >> numOfAddresses;
+	if (numOfAddresses > 0)
+	{
+		address = new Address[numOfAddresses];
+		for (int i = 0; i < numOfAddresses; i++)
+		{
+			in >> address[i];
+		}
+	}
+	in >> birthday >> salary;
 }
 
 Worker::Worker(const char* pName, const Address* address, const Date& birthday, int salary, unsigned numOfAddresses)
@@ -109,7 +118,7 @@ std::ostream& Worker::print(std::ostream& out) const
 {
 	if (typeid(out) == typeid(std::ofstream))
 	{
-		out << workerID << std::endl;
+		out << workerID << " ";
 		out << name << std::endl;
 		out << numOfAddresses << std::endl;
 		if (address)
@@ -156,46 +165,39 @@ std::ostream& operator<<(std::ostream& out, const Worker& worker)
 	return out;
 }
 
-std::istream& operator>>(std::istream& in, Worker& worker)
+std::istream& Worker::read(std::istream& in)
 {
-	char buffer[256];
+	char buffer[100];
 	if (typeid(in) == typeid(std::ifstream))
 	{
-		in >> worker.workerID;
-		in >> buffer;
-		worker.name = _strdup(buffer);
-		in >> worker.numOfAddresses;
-		if (worker.numOfAddresses > 0)
-		{
-			worker.address = new Address[worker.numOfAddresses];
-			for (int i = 0; i < worker.numOfAddresses; i++)
-			{
-				in >> worker.address[i];
-			}
-		}
-		in >> worker.birthday >> worker.salary;
+		throw "SHOULDNT BE HERE\n";
 	}
 	else {
 		std::cout << "Enter worker name (one word): ";
-		worker.workerID = ++worker.id;
+		workerID = ++id;
 		in.getline(buffer, sizeof(buffer));
-		worker.name = _strdup(buffer);
+		name = _strdup(buffer);
 		std::cout << "Enter number of addresses (non negative): ";
 		do {
-			in >> worker.numOfAddresses;
-		} while (worker.numOfAddresses < 0);
-		if (worker.numOfAddresses > 0)
+			in >> numOfAddresses;
+		} while (numOfAddresses < 0);
+		if (numOfAddresses > 0)
 		{
-			worker.address = new Address[worker.numOfAddresses];
-			for (int i = 0; i < worker.numOfAddresses; i++)
+			address = new Address * [numOfAddresses];
+			for (int i = 0; i < numOfAddresses; i++)
 			{
-				in >> worker.address[i];
+				in >> *address[i];
 			}
 		}
 		std::cout << "Enter birthday day/month/year\n";
-		in >> worker.birthday;
+		in >> birthday;
 		std::cout << "Enter salary: ";
-		in >> worker.salary;
+		in >> salary;
 	}
 	return in;
+}
+
+std::istream& operator>>(std::istream& in, Worker& worker)
+{
+	return worker.read();
 }

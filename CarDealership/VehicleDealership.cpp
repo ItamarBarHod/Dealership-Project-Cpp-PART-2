@@ -1,15 +1,16 @@
 #include "VehicleDealership.h"
 
-VehicleDealership::VehicleDealership()
+VehicleDealership::VehicleDealership() : maxSalesman(0), salesmanArr(nullptr), salesmanCount(0),
+vehicleCount(0), vehicleArr(nullptr), maxVehicles(0), name(""), monthlyProfit(0)
 {
 }
 
-VehicleDealership::VehicleDealership(std::istream& in)
+VehicleDealership::VehicleDealership(std::istream& in) : maxSalesman(0), salesmanArr(nullptr), salesmanCount(0), vehicleCount(0), vehicleArr(nullptr), maxVehicles(0), name(""), monthlyProfit(0)
 {
 	in >> *this;
 }
 
-VehicleDealership::VehicleDealership(const char* name, const Building& place, int maxSalesman) noexcept(false)
+VehicleDealership::VehicleDealership(const char* name, const Building& place, int maxSalesman)
 	: place(place), maxSalesman(maxSalesman), salesmanArr(nullptr), vehicleArr(nullptr),
 	salesmanCount(0), vehicleCount(0), monthlyProfit(0)
 {
@@ -64,11 +65,6 @@ bool VehicleDealership::addVehicle(const Vehicle& vehicle)
 	return true;
 }
 
-bool VehicleDealership::hireRandomSalesmen()
-{
-	return false;
-}
-
 bool VehicleDealership::addSalesman(const Salesman& salesman)
 {
 	if (salesmanCount == maxSalesman)
@@ -81,7 +77,7 @@ bool VehicleDealership::addSalesman(const Salesman& salesman)
 
 void VehicleDealership::showDealership() const
 {
-	std::cout << "Dealership name: " << name << " | " << place
+	std::cout << "\n\nDealership name: " << name << " | " << place
 		<< "Monthly profit: " << monthlyProfit << "\n\n";
 	if (salesmanCount > 0)
 	{
@@ -110,7 +106,7 @@ void VehicleDealership::showDealership() const
 Vehicle* VehicleDealership::hasIdenticalVehicles() const
 {
 	if (vehicleCount == 0)
-		return false;
+		return nullptr;
 	Vehicle* temp = nullptr;
 	for (int i = 0; i < vehicleCount; i++)
 	{
@@ -185,18 +181,33 @@ std::ostream& operator<<(std::ostream& out, const VehicleDealership& dealership)
 
 std::istream& operator>>(std::istream& in, VehicleDealership& dealership)
 {
-	in >> dealership.name >> dealership.place >> dealership.monthlyProfit;
-	in >> dealership.maxSalesman >> dealership.salesmanCount;
-	dealership.salesmanArr = new Salesman[dealership.maxSalesman];
-	for (int i = 0; i < dealership.salesmanCount; i++)
+	if (typeid(in) == typeid(std::ifstream))
 	{
-		in >> dealership.salesmanArr[i];
+		in >> dealership.name >> dealership.place >> dealership.monthlyProfit;
+		in >> dealership.maxSalesman >> dealership.salesmanCount;
+		dealership.salesmanArr = new Salesman[dealership.maxSalesman];
+		if (dealership.maxSalesman >= dealership.salesmanCount) {
+			for (int i = 0; i < dealership.salesmanCount; i++)
+			{
+				in >> dealership.salesmanArr[i];
+			}
+		}
+		in >> dealership.maxVehicles >> dealership.vehicleCount;
+		dealership.vehicleArr = new Vehicle * [dealership.maxVehicles];
+		if (dealership.maxVehicles >= dealership.vehicleCount) {
+			for (int i = 0; i < dealership.vehicleCount; i++)
+			{
+				in >> *dealership.vehicleArr[i];
+			}
+		}
 	}
-	in >> dealership.maxVehicles >> dealership.vehicleCount;
-	dealership.vehicleArr = new Vehicle * [dealership.maxVehicles];
-	for (int i = 0; i < dealership.vehicleCount; i++)
-	{
-		in >> *dealership.vehicleArr[i];
+	else {
+		std::cout << "Enter dealership name (one word, max " << dealership.DEALERSHIP_NAME_SIZE << " character): ";
+		in >> dealership.name;
+		std::cout << "Enter building:\n";
+		in >> dealership.place;
+		std::cout << "Enter max salesmen: ";
+		in >> dealership.maxSalesman;
 	}
 	return in;
 }

@@ -8,16 +8,16 @@ private:
 	static unsigned id;
 	unsigned workerID;
 	char* name;
-	Address* address;
+	Address** address;
 	int numOfAddresses;
 	Date birthday;
 	int salary;
 
 protected:
 	virtual std::ostream& print(std::ostream& out) const;
+	virtual std::istream& read(std::istream& in)
 
 public:
-	Worker();
 	Worker(std::istream& in);
 	Worker(const char* pName, const Address* address, const Date& birthday, int salary, unsigned numOfAddresses);
 	Worker(const Worker& other);

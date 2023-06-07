@@ -1,24 +1,6 @@
 #include "DealershipFactory.h"
 #include "SuperBoatCar.h"
 
-void DealershipFactory::initDealership(VehicleDealership* dealership)
-{
-	try {
-		char name[100];
-		std::cout << "Enter dealership name (one word): ";
-		std::cin >> name;
-		Building building;
-		std::cin >> building;
-		std::cout << "Enter max salesmen: ";
-		int maxSalesmen;
-		std::cin >> maxSalesmen;
-		dealership = new VehicleDealership(name, building, maxSalesmen);
-	}
-	catch (std::bad_alloc& e) {
-		throw;
-	}
-}
-
 Vehicle* DealershipFactory::createVehicle(int type)
 {
 	Vehicle* newVehicle = nullptr;

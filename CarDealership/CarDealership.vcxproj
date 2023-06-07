@@ -133,6 +133,7 @@
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Car.cpp" />
     <ClCompile Include="Date.cpp" />
+    <ClCompile Include="DealershipManager.cpp" />
     <ClCompile Include="General.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Salesman.cpp" />
@@ -140,13 +141,13 @@
     <ClCompile Include="Vehicle.cpp" />
     <ClCompile Include="VehicleDealership.cpp" />
     <ClCompile Include="DealershipFactory.cpp" />
-    <ClCompile Include="VehicleManager.cpp" />
     <ClCompile Include="Worker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Boat.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="Car.h" />
+    <ClInclude Include="DealershipManager.h" />
     <ClInclude Include="General.h" />
     <ClInclude Include="VehicleDealership.h" />
     <ClInclude Include="Date.h" />
@@ -155,7 +156,6 @@
     <ClInclude Include="SuperBoatCar.h" />
     <ClInclude Include="Vehicle.h" />
     <ClInclude Include="DealershipFactory.h" />
-    <ClInclude Include="VehicleManager.h" />
     <ClInclude Include="Worker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

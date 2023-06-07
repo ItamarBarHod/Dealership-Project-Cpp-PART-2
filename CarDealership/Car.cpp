@@ -29,12 +29,12 @@ Car::~Car()
 
 Car& Car::operator=(const Car& other)
 {
-	// TODO: insert return statement here
+	return *this;
 }
 
 Car& Car::operator=(Car&& other) noexcept
 {
-	// TODO: insert return statement here
+	return *this;
 }
 
 void Car::raisePrice()

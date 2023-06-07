@@ -4,9 +4,9 @@ Salesman::Salesman() : numOfDeals(0), totalSales(0)
 {
 }
 
-Salesman::Salesman(std::istream& in) : numOfDeals(0), totalSales(0)
+Salesman::Salesman(std::istream& in) : Worker(in), numOfDeals(0), totalSales(0)
 {
-	in >> *this;
+	in >> numOfDeals >> totalSales;
 }
 
 Salesman::Salesman(const char* name, const Address* address, Date& birthday, int salary, unsigned numOfAddresses)
@@ -69,10 +69,9 @@ const double Salesman::getAverageProfit() const
 
 std::istream& operator>>(std::istream& in, Salesman& salesman)
 {
-	in >> (Worker&)salesman;
 	if (typeid(in) == typeid(std::ifstream))
 	{
-		in >> salesman.numOfDeals >> salesman.totalSales;
+		throw "not here\n";
 	}
 	else {
 		std::cout << "Enter num of deals: ";

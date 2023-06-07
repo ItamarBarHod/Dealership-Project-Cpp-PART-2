@@ -39,9 +39,6 @@
     <ClCompile Include="VehicleDealership.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VehicleManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Car.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -55,6 +52,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="General.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DealershipManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,7 +95,7 @@
     <ClInclude Include="DealershipFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VehicleManager.h">
+    <ClInclude Include="DealershipManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

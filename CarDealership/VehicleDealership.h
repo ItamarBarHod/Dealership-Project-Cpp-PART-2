@@ -5,11 +5,11 @@
 #include "Salesman.h"
 #include "SuperBoatCar.h"
 
-#define MAX_DS_NAME 20
-
 class VehicleDealership {
 private:
-	char name[MAX_DS_NAME];
+	const static int DEALERSHIP_NAME_SIZE = 20;
+private:
+	char name[DEALERSHIP_NAME_SIZE];
 	double monthlyProfit;
 	Building place;
 	Salesman* salesmanArr;
@@ -21,17 +21,15 @@ private:
 
 private:
 	VehicleDealership(const VehicleDealership& other) = delete;
-	VehicleDealership(VehicleDealership&& other) = delete;
-	void sellVehicle();
 
 public:
 	VehicleDealership();
 	VehicleDealership(std::istream& in);
-	VehicleDealership(const char* name, const Building& place, int maxSalesman) throw(char*, std::bad_alloc&);
+	VehicleDealership(const char* name, const Building& place, int maxSalesman);
 	~VehicleDealership();
 
-	friend std::istream& operator>>(std::istream& in, VehicleDealership& dealership);
 	friend std::ostream& operator<<(std::ostream& out, const VehicleDealership& dealership);
+	friend std::istream& operator>>(std::istream& in, VehicleDealership& dealership);
 
 	double getMonthlyProfit() const { return monthlyProfit; }
 
@@ -41,6 +39,7 @@ public:
 	void showDealership() const;
 
 	void sellCollection();
+	void sellVehicle();
 
 	Vehicle* hasIdenticalVehicles() const;
 

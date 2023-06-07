@@ -38,7 +38,7 @@ Vehicle& Vehicle::operator=(const Vehicle& other)
 
 Vehicle& Vehicle::operator=(Vehicle&& other) noexcept
 {
-	// TODO: insert return statement here
+	return *this;
 }
 
 Vehicle::~Vehicle()

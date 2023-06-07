@@ -5,16 +5,45 @@ int main()
 {
 	set_terminate(exitDealership);
 
-	VehicleDealership* dealership;
+	std::cout << "Welcome to the vehicle dealership" << std::endl;
+
+	Salesman* worker;
+	std::ifstream inFile(fileName);
+	if (!inFile) {
+		std::cout << "initalizing manually\n";
+		worker = new Salesman(std::cin);
+	}
+	else {
+		worker = new Salesman(inFile);
+		std::cout << "\n\INITIALIZED FROM FILE!\n\n";
+	}
+	inFile.close();
+	std::cout << *worker << std::endl;
+
+	std::ofstream outFile(fileName);
+	if (!outFile)
+	{
+		std::cout << "error saving to file\n";
+	}
+	outFile << *worker;
+	outFile.close();
+
+	int pause;
+	std::cout << "pause\n";
+	std::cin >> pause;
+
+	/*VehicleDealership* dealership;
 	try {
 		dealership = DealershipManager::getInstance();
 	}
 	catch (std::bad_alloc& e) {
-		throw;
+		std::cout << "ERROR: " << e.what() << std::endl;
+		terminate();
 	}
 	catch (...) {
 		terminate();
 	}
+	dealership->showDealership();*/
 
 	//bool program = true;
 	//int option;
@@ -41,7 +70,11 @@ int main()
 	//			break;
 	//		case 6:
 	//			const Vehicle * tempVehicle = dealership->getBestVehicle();
+	//			if(tempVehicle)
 	//			std::cout << "The best vehicle is: " << *tempVehicle << std::endl;
+	//			else {
+	//			std::cout << "No vehicles exist yet\n";
+	//			}
 	//			break;
 	//		case 7:
 	//			const Salesman * tempWorker = dealership->getBestWorker();
@@ -60,13 +93,13 @@ int main()
 	//	std::cout << "error in program" << std::endl;
 	//}
 
-	if (!saveDealershipToFile(*dealership))
+	/*if (!saveDealershipToFile(*dealership))
 		std::cout << "Couldnt save files";
 
 	int pause;
 	std::cin >> pause;
 
-	DealershipManager::releaseInstance();
+	DealershipManager::releaseInstance();*/
 	//	srand((unsigned int)time(NULL));
 	//	{
 	//#define	TEST_WITH_INIT // use for faster testing
