@@ -42,7 +42,19 @@
     <ClCompile Include="VehicleManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Car.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Boat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="SuperBoatCar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DealershipFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="General.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,10 +92,10 @@
     <ClInclude Include="General.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VehicleManager.h">
+    <ClInclude Include="DealershipFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VehicleFactory.h">
+    <ClInclude Include="VehicleManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

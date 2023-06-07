@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include "Date.h"
 #include "Address.h"
 
@@ -10,7 +9,7 @@ private:
 	unsigned workerID;
 	char* name;
 	Address* address;
-	unsigned numOfAddresses;
+	int numOfAddresses;
 	Date birthday;
 	int salary;
 
@@ -19,11 +18,12 @@ protected:
 
 public:
 	Worker();
+	Worker(std::istream& in);
 	Worker(const char* pName, const Address* address, const Date& birthday, int salary, unsigned numOfAddresses);
 	Worker(const Worker& other);
 	Worker(Worker&& other) noexcept;
 	Worker& operator=(const Worker& other);
-	Worker& operator=(Worker&& other);
+	Worker& operator=(Worker&& other) noexcept;
 	virtual ~Worker();
 
 	friend std::ostream& operator<<(std::ostream& out, const Worker& worker);
@@ -37,17 +37,3 @@ public:
 	const Date& getBirthday() const { return birthday; }
 	const char* getName() const { return name; }
 };
-
-unsigned Worker::id = 1000;
-
-std::ostream& operator<<(std::ostream& out, const Worker& worker)
-{
-	worker.print(out);
-	return out;
-}
-
-std::istream& operator>>(std::istream& in, Worker& worker)
-{
-	worker.workerID = worker.id++;
-	return in;
-}
