@@ -1,13 +1,16 @@
+#ifndef DEALERSHIPFACTORY_H
+#define DEALERSHIPFACTORY_H
 #pragma once 
 
-#include "VehicleDealership.h"
-#include "Vehicle.h"
-#include "General.h"
+#include "SuperBoatCar.h"
 #include "Salesman.h"
 
 class DealershipFactory
 {
 public:
-	static Vehicle* createVehicle(int type);
-	static Salesman* createSalesman();
+	static int getTypeFromUser();
+	static Vehicle* createVehicle(std::istream& in);
+	static Salesman createSalesman();
 };
+
+#endif

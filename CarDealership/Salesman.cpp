@@ -1,17 +1,8 @@
 #include "Salesman.h"
 
-Salesman::Salesman() : numOfDeals(0), totalSales(0)
-{
-}
-
 Salesman::Salesman(std::istream& in) : Worker(in), numOfDeals(0), totalSales(0)
 {
-	in >> numOfDeals >> totalSales;
-}
-
-Salesman::Salesman(const char* name, const Address* address, Date& birthday, int salary, unsigned numOfAddresses)
-	: Worker(name, address, birthday, salary, numOfAddresses), totalSales(0), numOfDeals(0)
-{
+	read(in);
 }
 
 Salesman::Salesman(const Salesman& other) : Worker(other), numOfDeals(other.numOfDeals), totalSales(other.totalSales)
@@ -44,6 +35,14 @@ Salesman& Salesman::operator=(Salesman&& other) noexcept
 	return *this;
 }
 
+Salesman::Salesman(const char* name, Address** address, const Date& birthday, int salary, unsigned numOfAddresses, unsigned numOfDeals, double totalSales) : Worker(name, address, birthday, salary, numOfAddresses), numOfDeals(numOfDeals), totalSales(totalSales)
+{
+}
+
+Salesman::~Salesman()
+{
+}
+
 std::ostream& Salesman::print(std::ostream& out) const
 {
 	Worker::print(out);
@@ -60,6 +59,15 @@ std::ostream& Salesman::print(std::ostream& out) const
 	return out;
 }
 
+std::istream& Salesman::read(std::istream& in)
+{
+	if (typeid(in) == typeid(std::ifstream))
+	{
+		in >> numOfDeals >> totalSales;
+	}
+	return in;
+}
+
 const double Salesman::getAverageProfit() const
 {
 	if (numOfDeals == 0)
@@ -69,16 +77,5 @@ const double Salesman::getAverageProfit() const
 
 std::istream& operator>>(std::istream& in, Salesman& salesman)
 {
-	if (typeid(in) == typeid(std::ifstream))
-	{
-		throw "not here\n";
-	}
-	else {
-		std::cout << "Enter num of deals: ";
-		in >> salesman.numOfDeals;
-		std::cout << "Enter total sales: ";
-		in >> salesman.totalSales;
-		in.ignore();
-	}
-	return in;
+	return salesman.read(in);
 }

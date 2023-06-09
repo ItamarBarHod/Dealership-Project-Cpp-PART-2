@@ -1,7 +1,8 @@
+#ifndef ADDRESS_H
+#define ADDRESS_H
 #pragma once
 
-#include <iostream>
-#include <fstream>
+#include "General.h"
 
 class Address {
 private:
@@ -10,7 +11,6 @@ private:
 	unsigned houseNum;
 
 public:
-	Address();
 	Address(std::istream& in);
 	Address(const char* city, const char* street, unsigned houseNum);
 	Address(const Address& other);
@@ -30,3 +30,5 @@ public:
 	unsigned getHouseNum() const { return houseNum; }
 
 };
+
+#endif

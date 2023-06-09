@@ -132,8 +132,8 @@
     <ClCompile Include="Boat.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Car.cpp" />
+    <ClCompile Include="Cleaner.cpp" />
     <ClCompile Include="Date.cpp" />
-    <ClCompile Include="DealershipManager.cpp" />
     <ClCompile Include="General.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Salesman.cpp" />
@@ -147,8 +147,8 @@
     <ClInclude Include="Boat.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="Car.h" />
-    <ClInclude Include="DealershipManager.h" />
     <ClInclude Include="General.h" />
+    <ClInclude Include="Cleaner.h" />
     <ClInclude Include="VehicleDealership.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="Address.h" />

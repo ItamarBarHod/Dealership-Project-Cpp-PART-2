@@ -1,42 +1,13 @@
 #include "Date.h"
 
-Date::Date(int year, int month, int day) : year(year), month(month), day(day)
-{
-}
 
-Date::Date(std::ifstream& file) : year(0), month(0), day(0)
+Date::Date(std::istream& in)
 {
-	file >> *this;
+	read(in);
 }
 
 Date::Date(int year, unsigned month, unsigned day) : year(year), month(month), day(day)
 {
-}
-
-void Date::setDay(int day)
-{
-	if (day < 0 || day > MAX_DAY)
-	{
-		return;
-	}
-	this->day = day;
-}
-
-void Date::setMonth(int month)
-{
-	if (month < 0 || month > MAX_DAY)
-	{
-		return;
-	}
-	this->month = month;
-}
-void Date::setYear(int year)
-{
-	if (month < 0 || month > MAX_DAY)
-	{
-		return;
-	}
-	this->month = month;
 }
 
 std::ostream& operator<<(std::ostream& out, const Date& date)
@@ -51,19 +22,39 @@ std::ostream& operator<<(std::ostream& out, const Date& date)
 	return out;
 }
 
-std::istream& operator>>(std::istream& in, Date& date)
+std::istream& Date::read(std::istream& in)
 {
 	if (typeid(in) == typeid(std::ifstream))
 	{
-		in >> date.day >> date.month >> date.year;
+		in >> day >> month >> year;
 	}
 	else {
-		std::cout << "Enter day: ";
-		in >> date.day;
-		std::cout << "Enter month: ";
-		in >> date.month;
-		std::cout << "Enter year: ";
-		in >> date.year;
+		auto validDate = [=](int day, int month, int year) -> bool
+		{
+			return day > 0 && day <= 31 && month > 1 && month <= 12 && year >= MIN_YEAR && year <= MAX_YEAR;
+		};
+
+		int arr[3] = { 0 };
+		bool isValid;
+		do {
+			std::cout << "Enter day (between 1 and 31): ";
+			in >> arr[0];
+			std::cout << "Enter month (between 1 and 12): ";
+			in >> arr[1];
+			std::cout << "Enter year (between " << MIN_YEAR << " and " << MAX_YEAR << "): ";
+			in >> arr[2];
+			isValid = validDate(arr[0], arr[1], arr[2]);
+			if (!isValid)
+				std::cout << "Invalid date, try again" << std::endl;
+		} while (!isValid);
+		day = arr[0];
+		month = arr[1];
+		year = arr[2];
 	}
 	return in;
+}
+
+std::istream& operator>>(std::istream& in, Date& date)
+{
+	return date.read(in);
 }

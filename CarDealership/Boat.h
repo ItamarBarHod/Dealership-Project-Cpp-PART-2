@@ -1,3 +1,5 @@
+#ifndef BOAT_H
+#define BOAT_H
 #pragma once
 
 #include "Vehicle.h"
@@ -8,25 +10,20 @@ protected:
 	int numOfSails;
 
 protected:
-	virtual std::ostream& print(std::ostream& out) const override;
-	virtual std::istream& read(std::istream& in) override;
+	std::ostream& print(std::ostream& out) const override;
+	std::istream& read(std::istream& in) override;
 
 public:
-	Boat();
 	Boat(std::istream& in);
-	Boat(const Boat& other);
-	Boat(Boat&& other) noexcept;
 	Boat(const char* companyName, eColor color, float price, int sailingSpeed, int numOfSails);
-	virtual ~Boat();
-
-	Boat& operator=(const Boat& other);
-	Boat& operator=(Boat&& other) noexcept;
-
 
 	virtual int getNumOfSails() const { return numOfSails; }
 	virtual int getSpeed() const { return sailingSpeed; }
 
 	virtual void raisePrice() override;
+	virtual int getType() const override { return eBoat; }
 
 	Vehicle* Clone() const { return new Boat(*this); }
 };
+
+#endif

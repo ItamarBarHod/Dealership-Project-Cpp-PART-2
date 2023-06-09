@@ -1,40 +1,23 @@
 #include "General.h"
 
-Vehicle::eColor getColor()
+#include "SuperBoatCar.h"
+#include "Address.h"
+#include "Date.h"
+#include "Salesman.h"
+
+Salesman** createFiveSalesmen()
 {
-	int color;
-	std::cout << "enter color between 0 and " << Vehicle::eNofColor << std::endl;
-	do {
-		std::cin >> color;
-	} while (color < 0 || color > Vehicle::eNofColor);
-	return (Vehicle::eColor)color;
-}
+	const int maxWorkers = 5;
+	Salesman** workerArr = new Salesman * [maxWorkers];
 
-int getNumFromUser(const char* str, int min, int max)
-{
-	int num = 0;
-	cout << "Enter " << str << endl;
-	do {
-		cin >> num;
-		if (num < min || num > max)
-			cout << "Error: please enter a number between " << min << " and " << max;
-	} while (num < min || num > max);
-	return num;
-}
-
-
-Salesman* createSalesmen()
-{
-	Salesman* workerArr = new Salesman[MAX_WORKER];
-
-	Address address1("Raanana", "Etrog", 5);
-	Address address2("Kfar Saba", "Hadar", 66);
-	Address address3("Natanya", "Rakefet", 10);
-	Address address4("Tel-Aviv", "Kineret", 34);
-	Address address5("Hod-Hasharon", "HaBanim", 30);
-	Address twoAddress[2];
-	twoAddress[0] = Address(address4);
-	twoAddress[1] = Address(address5);
+	Address* address1 = new Address("Raanana", "Etrog", 5);
+	Address* address2 = new Address("Kfar Saba", "Hadar", 66);
+	Address* address3 = new Address("Natanya", "Rakefet", 10);
+	Address* address4 = new Address("Tel-Aviv", "Kineret", 34);
+	Address* address5 = new Address("Hod-Hasharon", "HaBanim", 30);
+	Address* twoAddress[2];
+	twoAddress[0] = new Address(*address4);
+	twoAddress[1] = new Address(*address5);
 
 	Date bday1(1995, 7, 27);
 	Date bday2(1994, 9, 17);
@@ -42,18 +25,19 @@ Salesman* createSalesmen()
 	Date bday4(1998, 4, 12);
 	Date bday5(1991, 2, 9);
 
-	workerArr[0] = Salesman("Amit", &address1, bday1, 2000, 1);
-	workerArr[1] = Salesman("Gilad", &address2, bday2, 3000, 1);
-	workerArr[2] = Salesman("Asher", &address3, bday3, 2500, 1);
-	workerArr[3] = Salesman("Lavy", nullptr, bday4, 3100, 0);
-	workerArr[4] = Salesman("Itamar", twoAddress, bday5, 2900, 2);
+	workerArr[0] = new Salesman("Amit", &address1, bday1, 2000, 1, 25000, 2);
+	workerArr[1] = new Salesman("Gilad", &address2, bday2, 3000, 1, 45000, 2);
+	workerArr[2] = new Salesman("Asher", &address3, bday3, 2500, 1, 70000, 3);
+	workerArr[3] = new Salesman("Lavy", nullptr, bday4, 3100, 0, 0, 0);
+	workerArr[4] = new Salesman("Itamar", twoAddress, bday5, 2900, 2, 25000, 1);
 
 	return workerArr;
 }
 
-Vehicle** createVehicles()
+Vehicle** createSevenVehicles()
 {
-	Vehicle** vehicleArr = new Vehicle * [MAX_VEC];
+	const int MAX_VEHICLES = 7;
+	Vehicle** vehicleArr = new Vehicle * [MAX_VEHICLES];
 
 	vehicleArr[0] = new Car("Ferari", Vehicle::eBlue, 10000, 200, 4);
 	vehicleArr[1] = new Boat("Skoda", Vehicle::eBlack, 5000, 310, 0);
@@ -68,18 +52,12 @@ Vehicle** createVehicles()
 
 void mainMenu()
 {
+
 }
 
-bool saveDealershipToFile(const VehicleDealership& dealership)
+void printOptions()
 {
-	std::ofstream outFile(fileName);
-	if (outFile)
-	{
-		outFile << dealership;
-		outFile.close();
-		return true;
-	}
-	return false;
+	std::cout << "options" << std::endl;
 }
 
 void exitDealership()

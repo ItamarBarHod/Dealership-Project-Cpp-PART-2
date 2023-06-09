@@ -1,4 +1,46 @@
-1001  itamar cohen
-0
-10 20 30
-40 50 60
+city
+street yes
+3
+ 3 3 
+1001         name
+2 city
+street
+3
+cites
+siters
+5
+3 3 1990
+3000 0
+dealer ship
+-48012 3 3
+1002         nozme
+3 cia
+3
+3
+4
+4
+4
+5
+5
+5
+5 5 1993
+4000 0 0
+1003        3
+1 bar
+za
+3
+3 3 1990
+3 0 0
+1004       bar
+1 koko
+kaka
+3
+2 2 1990
+3 0 0
+3 3
+0 Toyota 4 3000 0
+4 40
+0 Toyota 3 30 0
+3 3
+0 Toyota 3 4.2 0
+3 3

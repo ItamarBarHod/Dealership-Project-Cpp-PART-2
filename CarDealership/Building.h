@@ -1,4 +1,7 @@
+#ifndef BUILDING_H
+#define BUILDING_H
 #pragma once
+
 
 #include "Address.h"
 
@@ -8,12 +11,11 @@ private:
 	unsigned vehicleCapacity;
 	unsigned cost;
 
-public:
-	Building();
-	Building(std::ifstream& inFile);
-	Building(const char* city, const char* street, unsigned houseNum, int vehicleCapacity, int cost);
-	Building(const Address& loc, int vehicleCapacity, int cost);
+private:
+	std::istream& read(std::istream& in);
 
+public:
+	Building(std::istream& in);
 
 	friend std::ostream& operator<<(std::ostream& out, const Building& place);
 	friend std::istream& operator>>(std::istream& in, Building& place);
@@ -22,3 +24,5 @@ public:
 	unsigned getCapacity() const { return vehicleCapacity; }
 	unsigned getCost() const { return cost; }
 };
+
+#endif

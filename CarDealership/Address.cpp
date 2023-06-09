@@ -1,9 +1,5 @@
 #include "Address.h"
 
-Address::Address() : city(nullptr), street(nullptr), houseNum(0)
-{
-}
-
 Address::Address(std::istream& in) : city(nullptr), street(nullptr), houseNum(0)
 {
 	in >> *this;
@@ -72,20 +68,23 @@ void Address::setCity(const char* str)
 
 std::istream& operator>>(std::istream& in, Address& address)
 {
-	char buffer[256];
+	char buffer[BUFFER_SIZE];
 	if (typeid(in) == typeid(std::ifstream))
 	{
-		in >> buffer;
+		in.getline(buffer, BUFFER_SIZE);
 		address.city = _strdup(buffer);
-		in >> buffer >> address.houseNum;
+		in.getline(buffer, BUFFER_SIZE);
 		address.street = _strdup(buffer);
+		in >> address.houseNum;
+		in.get();
 	}
 	else {
+		std::cout << "Creating address!" << std::endl;
 		std::cout << "Enter city: ";
-		in >> buffer;
+		in.getline(buffer, BUFFER_SIZE);
 		address.city = _strdup(buffer);
 		std::cout << "Enter street: ";
-		in >> buffer;
+		in.getline(buffer, BUFFER_SIZE);
 		address.street = _strdup(buffer);
 		std::cout << "Enter house number: ";
 		in >> address.houseNum;
@@ -97,7 +96,9 @@ std::ostream& operator<<(std::ostream& out, const Address& address)
 {
 	if (typeid(out) == typeid(std::ofstream))
 	{
-		out << address.city << " " << address.street << " " << address.houseNum << std::endl;
+		out << address.city << std::endl;
+		out << address.street << std::endl;
+		out << address.houseNum << std::endl;
 	}
 	else {
 		out << "Address: " << address.city << ", " << address.street << ", " << address.houseNum << std::endl;

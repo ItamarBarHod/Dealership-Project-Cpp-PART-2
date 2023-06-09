@@ -1,30 +1,24 @@
+#ifndef GENERAL_H
+#define GENERAL_H
 #pragma once
 
-#include <stdlib.h> // rand 
-#include <time.h>
+#include <iostream>
+#include <fstream>
 
-#include "DealershipFactory.h"
-#include "DealershipManager.h"
-
-#include "SuperBoatCar.h"
-#include "Salesman.h"
-
-using std::cout;
-using std::cin;
-using std::endl;
+class Vehicle;
+class Salesman;
 
 const char fileName[] = "Dealership.txt";
-const unsigned int MAX_WORKER = 5;
-const unsigned int MAX_VEC = 7;
 const int BUFFER_SIZE = 100;
 
-Vehicle::eColor getColor();
-Salesman* createSalesmen();
-Vehicle** createVehicles();
+Salesman** createFiveSalesmen();
+Vehicle** createSevenVehicles();
 
 void mainMenu();
 
-bool saveDealershipToFile(const VehicleDealership& dealership);
+void printOptions();
+
 void exitDealership();
 
-int getNumFromUser(const char* str, int min, int max);
+
+#endif

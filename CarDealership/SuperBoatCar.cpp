@@ -2,41 +2,13 @@
 
 float SuperBoatCar::turbo = 1.5F;
 
-SuperBoatCar::SuperBoatCar()
+SuperBoatCar::SuperBoatCar(std::istream& in) : Vehicle(in), Car(in), Boat(in)
 {
 }
 
-SuperBoatCar::SuperBoatCar(std::istream& in) : Vehicle(in)
-{
-	in >> *this;
-}
 
-SuperBoatCar::SuperBoatCar(const SuperBoatCar& other)
+SuperBoatCar::SuperBoatCar(const char* companyName, eColor color, float price, int drivingSpeed, unsigned numOfWheels, int sailingSpeed, unsigned numOfSails) : Vehicle(companyName, color, price), Car(companyName, color, price, drivingSpeed, numOfWheels), Boat(companyName, color, price, sailingSpeed, numOfSails)
 {
-
-}
-
-SuperBoatCar::SuperBoatCar(SuperBoatCar&& other) noexcept
-{
-}
-
-SuperBoatCar::SuperBoatCar(const char* companyName, eColor color, float price, int drivingSpeed, unsigned numOfWheels, int sailingSpeed, unsigned numOfSails)
-	: Boat(companyName, color, price, sailingSpeed, numOfSails), Car(companyName, color, price, drivingSpeed, numOfWheels)
-{
-}
-
-SuperBoatCar::~SuperBoatCar()
-{
-}
-
-SuperBoatCar& SuperBoatCar::operator=(const SuperBoatCar& other)
-{
-	return *this;
-}
-
-SuperBoatCar& SuperBoatCar::operator=(SuperBoatCar&& other) noexcept
-{
-	return *this;
 }
 
 void SuperBoatCar::raisePrice()
@@ -54,7 +26,7 @@ std::ostream& SuperBoatCar::print(std::ostream& out) const
 	else {
 		out << "SuperBoatCar driving speed: " << drivingSpeed << ", number of wheels: " << numOfWheels << std::endl;
 		out << "SuperBoatCar sailing speed: " << sailingSpeed << ", number of sails: " << numOfSails << std::endl;
-		out << "Maxspeed of land and water: " << getSpeed() << ", Turbo speed: " << getMaxSpeed() << std::endl;
+		out << "Maxspeed of land and water: " << getSpeed() << ", Turbo speed: " << getMaxSpeed() << "\n\n";
 	}
 	return out;
 }

@@ -1,40 +1,12 @@
 #include "Car.h"
 
-Car::Car() : drivingSpeed(0), numOfWheels(0)
-{
-}
-
 Car::Car(std::istream& in) : Vehicle(in)
 {
-	in >> *this;
+	read(in);
 }
 
-Car::Car(const Car& other) : Vehicle(other)
+Car::Car(const char* companyName, eColor color, float price, int drivingSpeed, unsigned numOfWheels) : Vehicle(companyName, color, price), drivingSpeed(drivingSpeed), numOfWheels(numOfWheels)
 {
-}
-
-Car::Car(Car&& other) noexcept
-{
-}
-
-
-Car::Car(const char* companyName, eColor color, float price, int drivingSpeed, unsigned numOfWheels)
-	: Vehicle(companyName, color, price), drivingSpeed(drivingSpeed), numOfWheels(numOfWheels)
-{
-}
-
-Car::~Car()
-{
-}
-
-Car& Car::operator=(const Car& other)
-{
-	return *this;
-}
-
-Car& Car::operator=(Car&& other) noexcept
-{
-	return *this;
 }
 
 void Car::raisePrice()
@@ -51,14 +23,13 @@ std::ostream& Car::print(std::ostream& out) const
 		out << drivingSpeed << " " << numOfWheels << std::endl;
 	}
 	else {
-		out << "Car speed: " << drivingSpeed << ", number of wheels: " << numOfWheels << std::endl;
+		out << "Car speed: " << drivingSpeed << ", number of wheels: " << numOfWheels << "\n\n";
 	}
 	return out;
 }
 
 std::istream& Car::read(std::istream& in)
 {
-	Vehicle::read(in);
 	if (typeid(in) == typeid(std::ifstream))
 	{
 		in >> drivingSpeed >> numOfWheels;
