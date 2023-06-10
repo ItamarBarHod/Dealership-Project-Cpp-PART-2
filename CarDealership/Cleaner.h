@@ -1,5 +1,3 @@
-#ifndef Cleaner_H
-#define Cleaner_H
 #pragma once
 
 #include "Worker.h"
@@ -19,7 +17,5 @@ public:
 
 	friend std::istream& operator>>(std::istream& in, Cleaner& cleaner);
 
-	void cleanVehicle(Vehicle& vec); // changes both vec and members
+	void cleanVehicle(Vehicle& vec); // non const
 };
-
-#endif

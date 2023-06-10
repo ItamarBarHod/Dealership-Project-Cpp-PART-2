@@ -5,31 +5,25 @@
 #include "Date.h"
 #include "Salesman.h"
 
-Salesman** createFiveSalesmen()
+Salesman** createThreeSalesmen()
 {
-	const int maxWorkers = 5;
+	const int maxWorkers = 3;
 	Salesman** workerArr = new Salesman * [maxWorkers];
 
 	Address* address1 = new Address("Raanana", "Etrog", 5);
 	Address* address2 = new Address("Kfar Saba", "Hadar", 66);
 	Address* address3 = new Address("Natanya", "Rakefet", 10);
-	Address* address4 = new Address("Tel-Aviv", "Kineret", 34);
-	Address* address5 = new Address("Hod-Hasharon", "HaBanim", 30);
 	Address* twoAddress[2];
-	twoAddress[0] = new Address(*address4);
-	twoAddress[1] = new Address(*address5);
+	twoAddress[0] = new Address(*address2);
+	twoAddress[1] = new Address(*address3);
 
 	Date bday1(1995, 7, 27);
 	Date bday2(1994, 9, 17);
 	Date bday3(1996, 5, 6);
-	Date bday4(1998, 4, 12);
-	Date bday5(1991, 2, 9);
 
-	workerArr[0] = new Salesman("Amit", &address1, bday1, 2000, 1, 25000, 2);
-	workerArr[1] = new Salesman("Gilad", &address2, bday2, 3000, 1, 45000, 2);
-	workerArr[2] = new Salesman("Asher", &address3, bday3, 2500, 1, 70000, 3);
-	workerArr[3] = new Salesman("Lavy", nullptr, bday4, 3100, 0, 0, 0);
-	workerArr[4] = new Salesman("Itamar", twoAddress, bday5, 2900, 2, 25000, 1);
+	workerArr[0] = new Salesman("Itamar", &address1, bday1, 2000, 1, 25000, 2);
+	workerArr[1] = new Salesman("Amit", twoAddress, bday2, 2500, 1, 70000, 3);
+	workerArr[2] = new Salesman("Lavy", nullptr, bday3, 3000, 1, 45000, 2);
 
 	return workerArr;
 }

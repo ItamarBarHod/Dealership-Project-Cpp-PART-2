@@ -69,6 +69,8 @@ VehicleDealership* VehicleDealership::createDealership()
 
 VehicleDealership::~VehicleDealership()
 {
+	if (name)
+		delete[] name;
 	if (vehicleArr)
 	{
 		for (int i = 0; i < vehicleCount; i++)
@@ -87,7 +89,7 @@ VehicleDealership::~VehicleDealership()
 	}
 }
 
-bool VehicleDealership::addVehicle(const Vehicle& vehicle)
+void VehicleDealership::addVehicle(const Vehicle& vehicle)
 {
 	if (vehicleCount == maxVehicles)
 		throw "Maximum amount of vehicles";
@@ -95,23 +97,27 @@ bool VehicleDealership::addVehicle(const Vehicle& vehicle)
 	monthlyProfit -= vehicle.getPrice();
 	vehicleArr[vehicleCount]->raisePrice();
 	vehicleCount++;
-	return true;
 }
 
-bool VehicleDealership::addSalesman(const Salesman& salesman)
+void VehicleDealership::addSalesman(const Salesman& salesman)
 {
 	if (salesmanCount == maxSalesman)
 		throw "Maximum amount of salesmen";
 	salesmanArr[salesmanCount] = new Salesman(salesman);
 	salesmanCount++;
 	monthlyProfit -= salesman.getSalary();
-	return true;
 }
 
-void VehicleDealership::showDealership() const
+void VehicleDealership::printDealership() const
 {
 	std::cout << "\n\nDealership name: " << name << " | " << place
 		<< "Monthly profit: " << monthlyProfit << ", The cleaner is: \n\n" << cleaner << "\n\n";
+	printSalesmen();
+	printVehicles();
+}
+
+void VehicleDealership::printSalesmen() const
+{
 	if (salesmanCount > 0)
 	{
 		std::cout << "There are " << salesmanCount << " salesmen\n\n";
@@ -123,6 +129,10 @@ void VehicleDealership::showDealership() const
 	else {
 		std::cout << "No salesmen exist" << std::endl;
 	}
+}
+
+void VehicleDealership::printVehicles() const
+{
 	if (vehicleCount > 0)
 	{
 		std::cout << "There are " << vehicleCount << " vehicles\n\n";
@@ -163,30 +173,37 @@ void VehicleDealership::sellVehicle()
 
 }
 
-const Vehicle* VehicleDealership::getBestVehicle() const
+Vehicle& VehicleDealership::getVehicle(int index)
+{
+	if (index < 0 || index > vehicleCount)
+		throw "Error in vehicle index, shouldnt be here";
+	return *vehicleArr[index];
+}
+
+const Vehicle& VehicleDealership::getBestVehicle() const
 {
 	if (vehicleCount == 0)
-		return nullptr;
+		throw "There are no vehicles yet";
 	Vehicle* temp = vehicleArr[0];
 	for (int i = 1; i < vehicleCount; i++)
 	{
 		if (vehicleArr[i] > temp)
 			temp = vehicleArr[i];
 	}
-	return temp;
+	return *temp;
 }
 
-const Salesman* VehicleDealership::getBestWorker() const
+const Salesman& VehicleDealership::getBestSalesman() const
 {
 	if (salesmanCount == 0)
-		return nullptr;
+		throw "There are no salesmen yet";
 	Salesman* temp = salesmanArr[0];
 	for (int i = 1; i < salesmanCount; i++)
 	{
 		if (*salesmanArr[i] >= *temp)
 			temp = salesmanArr[i];
 	}
-	return temp;
+	return *temp;
 }
 
 std::ostream& operator<<(std::ostream& out, const VehicleDealership& dealership)
@@ -210,7 +227,7 @@ std::ostream& operator<<(std::ostream& out, const VehicleDealership& dealership)
 		}
 	}
 	else {
-		dealership.showDealership();
+		dealership.printDealership();
 	}
 	return out;
 }

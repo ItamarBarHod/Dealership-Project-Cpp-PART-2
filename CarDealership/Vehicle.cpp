@@ -112,14 +112,6 @@ Vehicle::eColor Vehicle::chooseColor() const
 	return (eColor)temp;
 }
 
-bool Vehicle::setColor(const eColor color)
-{
-	if (color < 0 || color > eNofColor)
-		return false;
-	this->color = color;
-	return true;
-}
-
 std::ostream& Vehicle::print(std::ostream& out) const
 {
 	if (typeid(out) == typeid(std::ofstream))

@@ -114,7 +114,7 @@ std::ostream& Worker::print(std::ostream& out) const
 {
 	if (typeid(out) == typeid(std::ofstream))
 	{
-		out << workerID << " " << name << std::endl;
+		out << workerID << name << std::endl;
 		out << numOfAddresses << " ";
 		if (address)
 		{
@@ -128,7 +128,7 @@ std::ostream& Worker::print(std::ostream& out) const
 	}
 	else {
 		out << "id: " << workerID << std::endl;
-		out << "Name: " << name << std::endl;
+		out << "Name:" << name << std::endl;
 		if (address)
 		{
 			out << "The worker has " << numOfAddresses << " addresses:" << std::endl;

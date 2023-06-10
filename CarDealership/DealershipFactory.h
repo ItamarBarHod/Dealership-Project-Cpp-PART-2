@@ -1,5 +1,3 @@
-#ifndef DEALERSHIPFACTORY_H
-#define DEALERSHIPFACTORY_H
 #pragma once 
 
 #include "SuperBoatCar.h"
@@ -12,5 +10,3 @@ public:
 	static Vehicle* createVehicle(std::istream& in);
 	static Salesman createSalesman();
 };
-
-#endif

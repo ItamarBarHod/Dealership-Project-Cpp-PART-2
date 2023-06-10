@@ -1,5 +1,3 @@
-#ifndef DEALERSHIP_H
-#define DEALERSHIP_H
 #pragma once
 
 #include <iostream>
@@ -13,8 +11,8 @@ class VehicleDealership {
 public:
 	static VehicleDealership* getInstance();
 	static void releaseInstance();
-private:
 
+private:
 	static VehicleDealership* vecDealership;
 	static VehicleDealership* createDealership();
 
@@ -42,11 +40,20 @@ public:
 	friend std::istream& operator>>(std::istream& in, VehicleDealership& dealership);
 
 	double getMonthlyProfit() const { return monthlyProfit; }
+	int getVehicleCount() const { return vehicleCount; }
+	int getSalesmanCount() const { return salesmanCount; }
+	Cleaner& getCleaner() { return cleaner; } // non const
+	const Vehicle& getBestVehicle() const;
+	const Salesman& getBestSalesman() const;
+	Vehicle& getVehicle(int index);
 
-	bool addVehicle(const Vehicle& vehicle);
-	bool addSalesman(const Salesman& salesman);
 
-	void showDealership() const;
+	void addVehicle(const Vehicle& vehicle);
+	void addSalesman(const Salesman& salesman);
+
+	void printDealership() const;
+	void printVehicles() const;
+	void printSalesmen() const;
 
 	void sellCollection();
 	void sellVehicle();
@@ -54,12 +61,7 @@ public:
 	Vehicle* hasIdenticalVehicles() const;
 	bool isMaxSalesman() const { return salesmanCount == maxSalesman; }
 	bool isMaxVehicles() const { return vehicleCount == maxVehicles; }
-	//int getMaxSalesman() const { return maxSalesman; }
-	//int getMaxVehicles() const { return maxVehicles; }
 
-	const Vehicle* getBestVehicle() const;
-	const Salesman* getBestWorker() const;
+
 
 };
-
-#endif

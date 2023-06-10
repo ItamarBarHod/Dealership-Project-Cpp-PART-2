@@ -1,5 +1,3 @@
-#ifndef SALESMAN_H
-#define SALESMAN_H
 #pragma once
 
 #include "Worker.h"
@@ -27,5 +25,3 @@ public:
 	const double getAverageProfit() const;
 	bool operator>=(const Salesman& other) const { return getAverageProfit() >= other.getAverageProfit(); }
 };
-
-#endif

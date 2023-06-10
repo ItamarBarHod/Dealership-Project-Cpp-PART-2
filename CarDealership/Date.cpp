@@ -1,5 +1,7 @@
 #include "Date.h"
 
+const int Date::MAX_DAY_ARR[MAX_MONTH] = { 31,29,31,30,31,30,31,31,30,31,30,31 };
+const char* Date::MONTH_ARR[MAX_MONTH] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 
 Date::Date(std::istream& in)
 {
@@ -29,27 +31,29 @@ std::istream& Date::read(std::istream& in)
 		in >> day >> month >> year;
 	}
 	else {
-		auto validDate = [=](int day, int month, int year) -> bool
+		enum { eDay, eMonth, eYear, eDateSize };
+		int dateArr[eDateSize] = { 0 };
+
+		auto validDate = [](int day, int month, int year) -> bool
 		{
-			return day > 0 && day <= 31 && month > 1 && month <= 12 && year >= MIN_YEAR && year <= MAX_YEAR;
+			return day >= MIN_DAY && day <= MAX_DAY_ARR[month] && month >= MIN_MONTH && month <= MAX_MONTH
+				&& year >= MIN_YEAR && year <= MAX_YEAR;
 		};
 
-		int arr[3] = { 0 };
 		bool isValid;
 		do {
-			std::cout << "Enter day (between 1 and 31): ";
-			in >> arr[0];
-			std::cout << "Enter month (between 1 and 12): ";
-			in >> arr[1];
 			std::cout << "Enter year (between " << MIN_YEAR << " and " << MAX_YEAR << "): ";
-			in >> arr[2];
-			isValid = validDate(arr[0], arr[1], arr[2]);
+			in >> dateArr[eYear];
+			std::cout << "Enter month (between " << MIN_MONTH << " and " << MAX_MONTH << "): ";
+			in >> dateArr[eMonth];
+			std::cout << "Enter day [" << MONTH_ARR[dateArr[eMonth] - 1] << "] (between "
+				<< MIN_DAY << " and " << MAX_DAY_ARR[dateArr[eMonth] - 1] << "): ";
+			in >> dateArr[eDay];
+			isValid = validDate(dateArr[eDay], dateArr[eMonth], dateArr[eYear]);
 			if (!isValid)
 				std::cout << "Invalid date, try again" << std::endl;
 		} while (!isValid);
-		day = arr[0];
-		month = arr[1];
-		year = arr[2];
+		day = dateArr[eDay], month = dateArr[eMonth], year = dateArr[eYear];
 	}
 	return in;
 }

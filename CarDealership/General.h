@@ -1,5 +1,3 @@
-#ifndef GENERAL_H
-#define GENERAL_H
 #pragma once
 
 #include <iostream>
@@ -11,7 +9,7 @@ class Salesman;
 const char fileName[] = "Dealership.txt";
 const int BUFFER_SIZE = 100;
 
-Salesman** createFiveSalesmen();
+Salesman** createThreeSalesmen();
 Vehicle** createSevenVehicles();
 
 void mainMenu();
@@ -19,6 +17,3 @@ void mainMenu();
 void printOptions();
 
 void exitDealership();
-
-
-#endif

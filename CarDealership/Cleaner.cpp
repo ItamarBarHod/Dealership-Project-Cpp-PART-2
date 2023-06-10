@@ -12,11 +12,10 @@ Cleaner::Cleaner(const char* name, Address** address, const Date& birthday, int 
 void Cleaner::cleanVehicle(Vehicle& vec)
 {
 	bool isClean = vec.getCleanStatus();
-	if (!isClean)
-	{
-		++vec;
-		numOfCleanedVehicles++;
-	}
+	if (isClean)
+		throw "Vehicle is already clean";
+	++vec;
+	numOfCleanedVehicles++;
 }
 
 std::ostream& Cleaner::print(std::ostream& out) const

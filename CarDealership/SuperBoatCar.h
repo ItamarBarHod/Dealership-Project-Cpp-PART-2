@@ -1,5 +1,3 @@
-#ifndef SUPERBOATCAR_H
-#define SUPERBOATCAR_H
 #pragma once
 
 #include "Boat.h"
@@ -25,5 +23,3 @@ public:
 
 	Vehicle* Clone() const { return new SuperBoatCar(*this); }
 };
-
-#endif

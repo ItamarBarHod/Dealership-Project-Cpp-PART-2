@@ -2,7 +2,7 @@ city
 street yes
 3
  3 3 
-1001         name
+1001 name
 2 city
 street
 3
@@ -13,7 +13,7 @@ siters
 3000 0
 dealer ship
 -48012 3 3
-1002         nozme
+1002 nozme
 3 cia
 3
 3
@@ -25,13 +25,13 @@ dealer ship
 5
 5 5 1993
 4000 0 0
-1003        3
+1003 3
 1 bar
 za
 3
 3 3 1990
 3 0 0
-1004       bar
+1004 bar
 1 koko
 kaka
 3

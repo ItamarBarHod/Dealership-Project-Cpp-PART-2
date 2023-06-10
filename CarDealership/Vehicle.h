@@ -1,5 +1,3 @@
-#ifndef VEHICLE_H
-#define VEHICLE_H
 #pragma once
 
 #include "General.h"
@@ -55,11 +53,8 @@ public:
 	const char* getCompanyName() const { return companyName; }
 	bool getCleanStatus() const { return isClean; }
 
-	bool setColor(const eColor color);
 	virtual void raisePrice() = 0;
 	virtual int getType() const = 0;
 
 	virtual Vehicle* Clone() const = 0;
 };
-
-#endif

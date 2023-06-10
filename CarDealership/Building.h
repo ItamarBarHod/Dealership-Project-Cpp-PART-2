@@ -1,7 +1,4 @@
-#ifndef BUILDING_H
-#define BUILDING_H
 #pragma once
-
 
 #include "Address.h"
 
@@ -24,5 +21,3 @@ public:
 	unsigned getCapacity() const { return vehicleCapacity; }
 	unsigned getCost() const { return cost; }
 };
-
-#endif

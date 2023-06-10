@@ -8,8 +8,8 @@ int main()
 	std::cout << "Welcome to the vehicle dealership" << std::endl;
 	VehicleDealership* dealership = VehicleDealership::getInstance();
 
-	std::cout << *dealership;
 	std::cin.get();
+	std::cout << *dealership;
 	try {
 		dealership->addSalesman(DealershipFactory::createSalesman());
 	}
@@ -62,7 +62,7 @@ int main()
 			switch (option)
 			{
 			case 1:
-				dealership->showDealership();
+				dealership->printDealership();
 				break;
 			case 2:
 				DealershipCleaner::addVehicle();

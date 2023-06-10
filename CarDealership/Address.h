@@ -1,5 +1,3 @@
-#ifndef ADDRESS_H
-#define ADDRESS_H
 #pragma once
 
 #include "General.h"
@@ -19,7 +17,6 @@ public:
 	const Address& operator=(Address&& other) noexcept;
 	~Address();
 
-
 	friend std::istream& operator>>(std::istream& in, Address& address);
 	friend std::ostream& operator<<(std::ostream& out, const Address& address);
 
@@ -30,5 +27,3 @@ public:
 	unsigned getHouseNum() const { return houseNum; }
 
 };
-
-#endif
