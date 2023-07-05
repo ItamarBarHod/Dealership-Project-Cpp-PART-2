@@ -96,6 +96,7 @@ Worker& Worker::operator=(Worker&& other) noexcept
 	}
 	return *this;
 }
+
 Worker::~Worker()
 {
 	if (name)
@@ -128,7 +129,7 @@ std::ostream& Worker::print(std::ostream& out) const
 	}
 	else {
 		out << "id: " << workerID << std::endl;
-		out << "Name:" << name << std::endl;
+		out << "Name: " << name << std::endl;
 		if (address)
 		{
 			out << "The worker has " << numOfAddresses << " addresses:" << std::endl;

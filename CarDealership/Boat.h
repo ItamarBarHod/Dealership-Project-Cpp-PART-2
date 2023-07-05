@@ -14,12 +14,11 @@ protected:
 public:
 	Boat(std::istream& in);
 	Boat(const char* companyName, eColor color, float price, int sailingSpeed, int numOfSails);
+	virtual ~Boat();
 
 	virtual int getNumOfSails() const { return numOfSails; }
 	virtual int getSpeed() const { return sailingSpeed; }
 
 	virtual void raisePrice() override;
 	virtual int getType() const override { return eBoat; }
-
-	Vehicle* Clone() const { return new Boat(*this); }
 };

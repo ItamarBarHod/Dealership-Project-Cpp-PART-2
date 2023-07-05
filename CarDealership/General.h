@@ -6,14 +6,16 @@
 class Vehicle;
 class Salesman;
 
-const char fileName[] = "Dealership.txt";
-const int BUFFER_SIZE = 100;
+static const char fileName[] = "Dealership.txt";
+static const int BUFFER_SIZE = 100;
 
-Salesman** createThreeSalesmen();
-Vehicle** createSevenVehicles();
-
-void mainMenu();
+bool mainMenu(int option);
 
 void printOptions();
+void printVehicleTypes();
+int chooseVehicleType();
+int getVehicleIndexFromUser();
+int getSalesmanIndexFromUser();
+int getCleanIndexFromUser();
 
-void exitDealership();
+void terminateDealership();

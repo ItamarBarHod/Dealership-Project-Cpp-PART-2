@@ -1,11 +1,9 @@
 #pragma once
 
-#include <iostream>
-#include <fstream>
-
-#include "DealershipFactory.h"
 #include "Building.h"
 #include "Cleaner.h"
+
+class VehicleSorter;
 
 class VehicleDealership {
 public:
@@ -14,11 +12,10 @@ public:
 
 private:
 	static VehicleDealership* vecDealership;
-	static VehicleDealership* createDealership();
 
 	VehicleDealership(std::istream& in);
-	VehicleDealership(const char* name, const Building& place, int maxSalesman, const Cleaner& cleaner);
 	VehicleDealership(const VehicleDealership& other) = delete;
+	void setSortStrategy(int strategy);
 
 	std::istream& read(std::istream& in);
 private:
@@ -32,8 +29,10 @@ private:
 	Vehicle** vehicleArr;
 	int vehicleCount;
 	int maxVehicles;
+	VehicleSorter* vSorter;
 
 public:
+	VehicleDealership(const char* name, const Building& place, int maxSalesman, const Cleaner& cleaner);
 	virtual ~VehicleDealership();
 
 	friend std::ostream& operator<<(std::ostream& out, const VehicleDealership& dealership);
@@ -43,25 +42,23 @@ public:
 	int getVehicleCount() const { return vehicleCount; }
 	int getSalesmanCount() const { return salesmanCount; }
 	Cleaner& getCleaner() { return cleaner; } // non const
+	const VehicleSorter& getVehicleSorter() const { return *vSorter; }
 	const Vehicle& getBestVehicle() const;
 	const Salesman& getBestSalesman() const;
-	Vehicle& getVehicle(int index);
+	Vehicle& getVehicle(int index) const; // non const return
+	Salesman& getSalesman(int index) const; // non const return
 
-
-	void addVehicle(const Vehicle& vehicle);
-	void addSalesman(const Salesman& salesman);
+	void addVehicle(Vehicle* const vehicle); // const address
+	void addSalesman(Salesman* const salesman);
 
 	void printDealership() const;
 	void printVehicles() const;
 	void printSalesmen() const;
 
-	void sellCollection();
-	void sellVehicle();
+	void sellAllCollectionRandomly();
+	void sellVehicle(int salesmanIndex, int vehicleIndex);
 
-	Vehicle* hasIdenticalVehicles() const;
+	void sortVehicles(int strategy);
 	bool isMaxSalesman() const { return salesmanCount == maxSalesman; }
 	bool isMaxVehicles() const { return vehicleCount == maxVehicles; }
-
-
-
 };

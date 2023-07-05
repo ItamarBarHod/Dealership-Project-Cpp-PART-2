@@ -1,15 +1,31 @@
 #include "VehicleDealership.h"
+#include "DSFactory.h"
+#include "VehicleBubbleDown.h"
+#include "VehicleBubbleUp.h"
 
 VehicleDealership* VehicleDealership::vecDealership = nullptr;
 
-VehicleDealership::VehicleDealership(std::istream& in) : place(in), cleaner(in), name(nullptr), maxSalesman(0), salesmanArr(nullptr), vehicleArr(nullptr), salesmanCount(0), vehicleCount(0), monthlyProfit(0)
+VehicleDealership::VehicleDealership(std::istream& in) : place(in), cleaner(in), name(nullptr), maxSalesman(0), salesmanArr(nullptr), vehicleArr(nullptr), salesmanCount(0), vehicleCount(0), monthlyProfit(0), vSorter(nullptr)
 { //building and cleaner require initlist
 	read(in);
 }
 
+void VehicleDealership::setSortStrategy(int strategy)
+{
+	if (strategy < 0 || strategy > 1)
+		throw "No such sort available";
+	delete vSorter;
+	VehicleSorter::sortType type = (VehicleSorter::sortType)strategy;
+	if (strategy == (int)VehicleSorter::eBubbleDown)
+		vSorter = new VehicleBubbleDown(type);
+	else
+		vSorter = new VehicleBubbleUp(type);
+}
+
 VehicleDealership::VehicleDealership(const char* name, const Building& place, int maxSalesman, const Cleaner& cleaner)
 	: place(place), maxSalesman(maxSalesman), salesmanArr(nullptr), vehicleArr(nullptr),
-	salesmanCount(0), vehicleCount(0), monthlyProfit(0), name(nullptr), cleaner(cleaner)
+	salesmanCount(0), vehicleCount(0), monthlyProfit(0), name(nullptr), cleaner(cleaner),
+	vSorter(new VehicleBubbleDown(VehicleSorter::eBubbleDown))
 {
 	if (name)
 		this->name = _strdup(name);
@@ -29,7 +45,12 @@ VehicleDealership* VehicleDealership::getInstance()
 	if (!vecDealership) {
 		std::ifstream inFile(fileName);
 		if (!inFile) {
-			vecDealership = createDealership();
+			try {
+				vecDealership = DSFactory::createDealershipManually();
+			}
+			catch (const char* const msg) {
+				throw msg;
+			}
 		}
 		else {
 			vecDealership = new VehicleDealership(inFile);
@@ -52,21 +73,6 @@ void VehicleDealership::releaseInstance()
 	}
 }
 
-VehicleDealership* VehicleDealership::createDealership()
-{
-	char buffer[BUFFER_SIZE];
-	std::cout << "Enter dealership name: ";
-	std::cin.getline(buffer, BUFFER_SIZE);
-	Building building(std::cin);
-	std::cout << "Enter max workers: ";
-	int maxWorkers;
-	std::cin >> maxWorkers;
-	std::cin.get();
-	std::cout << "Initializing cleaner: " << std::endl;
-	Cleaner cleaner = Cleaner(std::cin);
-	return new VehicleDealership(buffer, building, maxWorkers, cleaner);
-}
-
 VehicleDealership::~VehicleDealership()
 {
 	if (name)
@@ -87,107 +93,122 @@ VehicleDealership::~VehicleDealership()
 		}
 		delete[] salesmanArr;
 	}
+	delete vSorter;
 }
 
-void VehicleDealership::addVehicle(const Vehicle& vehicle)
+void VehicleDealership::addVehicle(Vehicle* const vehicle)
 {
 	if (vehicleCount == maxVehicles)
 		throw "Maximum amount of vehicles";
-	vehicleArr[vehicleCount] = vehicle.Clone();
-	monthlyProfit -= vehicle.getPrice();
+	vehicleArr[vehicleCount] = vehicle;
+	monthlyProfit -= vehicle->getPrice();
 	vehicleArr[vehicleCount]->raisePrice();
 	vehicleCount++;
 }
 
-void VehicleDealership::addSalesman(const Salesman& salesman)
+void VehicleDealership::addSalesman(Salesman* const salesman)
 {
 	if (salesmanCount == maxSalesman)
 		throw "Maximum amount of salesmen";
-	salesmanArr[salesmanCount] = new Salesman(salesman);
+	salesmanArr[salesmanCount] = salesman;
 	salesmanCount++;
-	monthlyProfit -= salesman.getSalary();
+	monthlyProfit -= salesman->getSalary();
 }
 
 void VehicleDealership::printDealership() const
 {
 	std::cout << "\n\nDealership name: " << name << " | " << place
-		<< "Monthly profit: " << monthlyProfit << ", The cleaner is: \n\n" << cleaner << "\n\n";
+		<< "Monthly profit: " << monthlyProfit << "\nSorting vehicle strategy is: " << vSorter->getStrategyName() << "\nThe cleaner is: \n\n" << cleaner << "\n\n";
 	printSalesmen();
 	printVehicles();
 }
 
 void VehicleDealership::printSalesmen() const
 {
-	if (salesmanCount > 0)
+	if (salesmanCount == 0)
+		throw "No salesmen exist yet";
+
+	std::cout << "There are " << salesmanCount << " salesmen\n\n";
+	for (int i = 0; i < salesmanCount; i++)
 	{
-		std::cout << "There are " << salesmanCount << " salesmen\n\n";
-		for (int i = 0; i < salesmanCount; i++)
-		{
-			std::cout << "Salesman number " << i + 1 << ": " << *salesmanArr[i] << std::endl;
-		}
-	}
-	else {
-		std::cout << "No salesmen exist" << std::endl;
+		std::cout << "Salesman number " << i + 1 << ": " << *salesmanArr[i] << std::endl;
 	}
 }
 
 void VehicleDealership::printVehicles() const
 {
-	if (vehicleCount > 0)
-	{
-		std::cout << "There are " << vehicleCount << " vehicles\n\n";
-		for (int i = 0; i < vehicleCount; i++)
-		{
-			std::cout << "Vehicle number " << i + 1 << ": " << *vehicleArr[i] << std::endl;
-		}
-	}
-	else {
-		std::cout << "No vehicles exist" << std::endl;
-	}
-}
-
-Vehicle* VehicleDealership::hasIdenticalVehicles() const
-{
 	if (vehicleCount == 0)
-		return nullptr;
-	Vehicle* temp = nullptr;
+		throw "No vehicles exist yet";
+
+	std::cout << "There are " << vehicleCount << " vehicles\n\n";
 	for (int i = 0; i < vehicleCount; i++)
 	{
-		Vehicle* temp = vehicleArr[0];
-		for (int j = i + 1; j < vehicleCount; j++)
-		{
-			if (*temp == *vehicleArr[j])
-				return temp;
-		}
+		std::cout << "Vehicle number " << i + 1 << ": " << *vehicleArr[i] << std::endl;
 	}
-	return temp;
 }
 
-void VehicleDealership::sellCollection()
+void VehicleDealership::sellAllCollectionRandomly()
 {
+	if (salesmanCount == 0)
+		throw "No salesman available to sell collection";
+	if (vehicleCount == 0)
+		throw "No vehicles available to sell";
 
+	for (int vehicleIndex = vehicleCount - 1; vehicleIndex >= 0; vehicleIndex--)
+	{
+		int randomSalesmanIndex = rand() % salesmanCount;
+		const Salesman& salesman = *salesmanArr[randomSalesmanIndex];
+		std::cout << "Salesman " << salesman.getName() << " sold vehicle number: "
+			<< vehicleIndex << " for " << vehicleArr[vehicleIndex]->getPrice() << " dollars" << std::endl;
+		sellVehicle(randomSalesmanIndex, vehicleIndex);
+	}
 }
 
-void VehicleDealership::sellVehicle()
+void VehicleDealership::sellVehicle(int salesmanIndex, int vehicleIndex)
 {
+	if (salesmanIndex < 0 || salesmanIndex >= salesmanCount)
+		throw "Invalid salesman number";
+	if (vehicleIndex < 0 || vehicleIndex >= vehicleCount)
+		throw "Invalid Vehicle number";
 
+	const Vehicle& vehicle = getVehicle(vehicleIndex);
+	Salesman& salesman = getSalesman(salesmanIndex);
+	salesman.doSell(vehicle);
+
+	delete vehicleArr[vehicleIndex];
+	for (int i = vehicleIndex; i < vehicleCount; i++) // fix vehicle arr
+	{
+		vehicleArr[i] = vehicleArr[i + 1];
+	}
+	vehicleCount--;
 }
 
-Vehicle& VehicleDealership::getVehicle(int index)
+void VehicleDealership::sortVehicles(int strategy)
 {
-	if (index < 0 || index > vehicleCount)
-		throw "Error in vehicle index, shouldnt be here";
+	setSortStrategy(strategy);
+	vSorter->sortVehicles(vehicleArr, vehicleCount);
+}
+
+Vehicle& VehicleDealership::getVehicle(int index) const
+{
+	if (index < 0 || index >= vehicleCount)
+		throw "No such vehicle index";
 	return *vehicleArr[index];
+}
+
+Salesman& VehicleDealership::getSalesman(int index) const
+{
+	return *salesmanArr[index];
 }
 
 const Vehicle& VehicleDealership::getBestVehicle() const
 {
 	if (vehicleCount == 0)
 		throw "There are no vehicles yet";
-	Vehicle* temp = vehicleArr[0];
+	const Vehicle* temp = vehicleArr[0];
 	for (int i = 1; i < vehicleCount; i++)
 	{
-		if (vehicleArr[i] > temp)
+		if (*vehicleArr[i] > *temp)
 			temp = vehicleArr[i];
 	}
 	return *temp;
@@ -225,6 +246,7 @@ std::ostream& operator<<(std::ostream& out, const VehicleDealership& dealership)
 			out << dealership.vehicleArr[i]->getType() << " ";
 			out << *dealership.vehicleArr[i];
 		}
+		out << (int)dealership.vSorter->getType();
 	}
 	else {
 		dealership.printDealership();
@@ -252,9 +274,12 @@ std::istream& VehicleDealership::read(std::istream& in)
 	if (maxVehicles >= vehicleCount) {
 		for (int i = 0; i < vehicleCount; i++)
 		{
-			vehicleArr[i] = DealershipFactory::createVehicle(in);
+			vehicleArr[i] = DSFactory::createVehicle(in);
 		}
 	}
+	int strategy;
+	in >> strategy;
+	setSortStrategy(strategy);
 	return in;
 }
 

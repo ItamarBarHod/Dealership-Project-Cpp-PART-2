@@ -1,6 +1,10 @@
 #include "Vehicle.h"
 
 const float Vehicle::CLEAN_FACTOR = 1.1F;
+const float Vehicle::factorArr[eNofType] = { 1.4F, 1.3F, 2.0F };
+const char* Vehicle::colorArr[eNofColor] = { "White", "Black", "Blue", "Red", "Yellow", "Purple" };
+const char* Vehicle::vehicleTypeArr[eNofType] = { "Car", "Boat", "SuperBoatCar" };
+const char* Vehicle::manufacturerArr[eNofManufacturer] = { "Ferari", "Skoda", "Honda", "Toyota", "Mazda", "Volvo", "Tesla" };
 
 Vehicle::Vehicle(std::istream& in)
 {
@@ -56,20 +60,23 @@ Vehicle::~Vehicle()
 		delete[] companyName;
 }
 
-bool Vehicle::operator>(const Vehicle& other)
-{
-	return (price > other.price);
-}
-
-bool Vehicle::operator==(const Vehicle& other)
+bool Vehicle::operator==(const Vehicle& other) const
 {
 	return (strcmp(companyName, other.companyName) == 0 && color == other.color && typeid(*this) == typeid(other));
 }
 
-void Vehicle::operator++()
+const Vehicle& Vehicle::operator++()
 {
 	price *= CLEAN_FACTOR;
 	isClean = true;
+	return *this;
+}
+
+void Vehicle::printVehicle() const
+{
+	std::cout << "\nCompany name: " << companyName << ", Color: " << colorArr[color] << ", Price: " << price
+		<< ", is clean: " << std::boolalpha << isClean << std::endl;
+	//boolalpha - prints true false instead of 0/1
 }
 
 void Vehicle::printManufacturer() const
@@ -119,9 +126,7 @@ std::ostream& Vehicle::print(std::ostream& out) const
 		out << companyName << " " << color << " " << price << " " << isClean << std::endl;
 	}
 	else {
-		out << "\nCompany name: " << companyName << ", Color: " << colorArr[color] << ", Price: " << price
-			<< ", is clean: " << std::boolalpha << isClean << std::endl;
-		//boolalpha - prints true false instead of 0/1
+		printVehicle(); // public
 	}
 	return out;
 }
@@ -153,9 +158,4 @@ std::istream& Vehicle::read(std::istream& in)
 std::ostream& operator<<(std::ostream& out, const Vehicle& v)
 {
 	return v.print(out);
-}
-
-std::istream& operator>>(std::istream& in, Vehicle& v)
-{
-	return v.read(in);
 }

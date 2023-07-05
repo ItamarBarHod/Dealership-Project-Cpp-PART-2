@@ -43,6 +43,21 @@ Salesman::~Salesman()
 {
 }
 
+void Salesman::printSalesman() const
+{
+	Worker::print(std::cout);
+	const double profit = getAverageProfit();
+	std::cout << "Num of deals: " << numOfDeals << std::endl;
+	std::cout << "Total sales: " << totalSales << std::endl;
+	std::cout << "Average profit: " << profit << std::endl;
+}
+
+void Salesman::doSell(const Vehicle& vehicle)
+{
+	totalSales += vehicle.getPrice();
+	numOfDeals++;
+}
+
 std::ostream& Salesman::print(std::ostream& out) const
 {
 	Worker::print(out);
@@ -52,9 +67,9 @@ std::ostream& Salesman::print(std::ostream& out) const
 		out << numOfDeals << " " << totalSales << std::endl;
 	}
 	else {
-		out << "Num of deals: " << numOfDeals << std::endl;
-		out << "Total sales: " << totalSales << std::endl;
-		out << "Average profit: " << profit << std::endl;
+		std::cout << "Num of deals: " << numOfDeals << std::endl;
+		std::cout << "Total sales: " << totalSales << std::endl;
+		std::cout << "Average profit: " << profit << std::endl;
 	}
 	return out;
 }

@@ -10,6 +10,10 @@ Boat::Boat(const char* companyName, eColor color, float price, int sailingSpeed,
 {
 }
 
+Boat::~Boat()
+{
+}
+
 std::ostream& Boat::print(std::ostream& out) const
 {
 	Vehicle::print(out);

@@ -1,61 +1,152 @@
 #include "General.h"
+#include "VehicleDealership.h"
+#include "DSFactory.h"
 
 #include "SuperBoatCar.h"
 #include "Address.h"
 #include "Date.h"
 #include "Salesman.h"
+#include "VehicleSorter.h"
 
-Salesman** createThreeSalesmen()
+enum { ePrintDealership = 1, eAddSalesman, eAddVehicle, eSellVehicle, eCleanVehicle, eSellCollection, eBestSalesman, eBestVehicle, eSortVehicles, eExitProgram = 0 };
+
+bool mainMenu(int option)
 {
-	const int maxWorkers = 3;
-	Salesman** workerArr = new Salesman * [maxWorkers];
-
-	Address* address1 = new Address("Raanana", "Etrog", 5);
-	Address* address2 = new Address("Kfar Saba", "Hadar", 66);
-	Address* address3 = new Address("Natanya", "Rakefet", 10);
-	Address* twoAddress[2];
-	twoAddress[0] = new Address(*address2);
-	twoAddress[1] = new Address(*address3);
-
-	Date bday1(1995, 7, 27);
-	Date bday2(1994, 9, 17);
-	Date bday3(1996, 5, 6);
-
-	workerArr[0] = new Salesman("Itamar", &address1, bday1, 2000, 1, 25000, 2);
-	workerArr[1] = new Salesman("Amit", twoAddress, bday2, 2500, 1, 70000, 3);
-	workerArr[2] = new Salesman("Lavy", nullptr, bday3, 3000, 1, 45000, 2);
-
-	return workerArr;
-}
-
-Vehicle** createSevenVehicles()
-{
-	const int MAX_VEHICLES = 7;
-	Vehicle** vehicleArr = new Vehicle * [MAX_VEHICLES];
-
-	vehicleArr[0] = new Car("Ferari", Vehicle::eBlue, 10000, 200, 4);
-	vehicleArr[1] = new Boat("Skoda", Vehicle::eBlack, 5000, 310, 0);
-	vehicleArr[2] = new Boat("Honda", Vehicle::eWhite, 20000, 200, 1);
-	vehicleArr[3] = new SuperBoatCar("Honda", Vehicle::eWhite, 10000, 200, 4, 100, 2);
-	vehicleArr[4] = new Car("Toyota", Vehicle::eWhite, 6000, 220, 4);
-	vehicleArr[5] = new SuperBoatCar("Ferari", Vehicle::eBlue, 6500, 150, 2, 100, 0);
-	vehicleArr[6] = new Car("Toyota", Vehicle::eYellow, 10000, 120, 3);
-
-	return vehicleArr;
-}
-
-void mainMenu()
-{
-
+	VehicleDealership* dealership = VehicleDealership::getInstance();
+	try {
+		int cleanIndex, vehicleIndex, salesmanIndex, strategy;
+		switch (option)
+		{
+		case ePrintDealership:
+			dealership->printDealership();
+			break;
+		case eAddSalesman:
+			dealership->addSalesman(DSFactory::createSalesman());
+			std::cout << "Salesman Added\n" << std::endl;
+			break;
+		case eAddVehicle:
+			dealership->addVehicle(DSFactory::createVehicle(std::cin));
+			std::cout << "Vehicle Added\n" << std::endl;
+			break;
+		case eSellVehicle:
+			vehicleIndex = getVehicleIndexFromUser();
+			salesmanIndex = getSalesmanIndexFromUser();
+			dealership->sellVehicle(salesmanIndex, vehicleIndex);
+			std::cout << "Vehicle sold!\n" << std::endl;
+			break;
+		case eCleanVehicle:
+			cleanIndex = getCleanIndexFromUser();
+			dealership->getCleaner().cleanVehicle(dealership->getVehicle(cleanIndex));
+			std::cout << "Vehicle was cleaned!\n" << std::endl;
+			break;
+		case eSellCollection:
+			dealership->sellAllCollectionRandomly();
+			std::cout << "Collection sold!\n" << std::endl;
+			break;
+		case eBestSalesman:
+			std::cout << "The best salesman is (highest average profit): " << std::endl;
+			dealership->getBestSalesman().printSalesman();
+			break;
+		case eBestVehicle:
+			std::cout << "The best vehicle is (highest price): ";
+			dealership->getBestVehicle().printVehicle();
+			break;
+		case eSortVehicles:
+			std::cout << "Please choose sort strategy:\n1: bubbleSortDown\n2: bubbleSortUp" << std::endl;
+			std::cin >> strategy;
+			dealership->sortVehicles(--strategy);
+			std::cout << "Changed sort to: " << dealership->getVehicleSorter().getStrategyName() << std::endl;
+			std::cout << "Sorted vehicles!" << std::endl;
+			break;
+		case eExitProgram:
+			return false;
+		default:
+			throw "No such option!\n";
+		}
+	}
+	catch (const char* const msg) {
+		std::cout << msg << std::endl;
+	}
+	catch (const std::exception& e) {
+		std::cout << e.what() << std::endl;
+	}
+	catch (...) {
+		terminate(); // custom
+	}
+	return true;
 }
 
 void printOptions()
 {
-	std::cout << "options" << std::endl;
+	std::cout
+		<< "\nAvailable options:" << std::endl
+		<< "1: Print dealership" << std::endl
+		<< "2: Add salesman" << std::endl
+		<< "3: Add Vehicle" << std::endl
+		<< "4: Sell vehicle" << std::endl
+		<< "5: Clean a vehicle" << std::endl
+		<< "6: Sell all available vehicles randomly" << std::endl
+		<< "7: Show best salesman" << std::endl
+		<< "8: Show best vehicle" << std::endl
+		<< "9: Sort vehicles by strategy" << std::endl
+		<< "0: Save & Exit dealership\n" << std::endl;
 }
 
-void exitDealership()
+
+void printVehicleTypes()
 {
-	std::cout << "Fatal error in dealership, exiting program" << std::endl;
+	for (int i = 0; i < Vehicle::eNofType; i++)
+	{
+		std::cout << i + 1 << ": " << Vehicle::vehicleTypeArr[i] << std::endl;
+	}
+	std::cout << std::endl;
+}
+
+int chooseVehicleType()
+{
+	std::cout << "Please enter a vehicle type: " << std::endl;
+	printVehicleTypes();
+	int type;
+	do {
+		std::cin >> type;
+		if (type <= 0 || type > Vehicle::eNofType)
+			std::cout << "Please enter a valid type" << std::endl;
+	} while (type <= 0 || type > Vehicle::eNofType);
+	return --type;
+}
+
+int getVehicleIndexFromUser()
+{
+	VehicleDealership* dealership = VehicleDealership::getInstance();
+	int vehicleIndex;
+	dealership->printVehicles();
+	std::cout << "\nPlease choose vehicle: " << std::endl;
+	std::cin >> vehicleIndex;
+	return --vehicleIndex;
+}
+
+int getSalesmanIndexFromUser()
+{
+	VehicleDealership* dealership = VehicleDealership::getInstance();
+	int salesmanIndex;
+	dealership->printSalesmen();
+	std::cout << "\nPlease choose salesman: " << std::endl;
+	std::cin >> salesmanIndex;
+	return --salesmanIndex;
+}
+
+int getCleanIndexFromUser()
+{
+	VehicleDealership* dealership = VehicleDealership::getInstance();
+	dealership->printVehicles();
+	std::cout << "\nPlease choose vehicle number to clean: " << std::endl;
+	int index;
+	std::cin >> index;
+	return --index;
+}
+
+void terminateDealership()
+{
+	std::cout << "Fatal error in dealership, exiting" << std::endl;
 	exit(1);
 }

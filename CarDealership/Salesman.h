@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Worker.h"
+#include "Vehicle.h"
 
 class Salesman : public Worker {
 private:
@@ -19,6 +20,9 @@ public:
 	Salesman& operator=(Salesman&& other) noexcept;
 	Salesman(const char* name, Address** address, const Date& birthday, int salary, unsigned numOfAddresses, unsigned numOfDeals, double totalSales);
 	~Salesman();
+
+	void printSalesman() const;
+	void doSell(const Vehicle& vehicle);
 
 	friend std::istream& operator>>(std::istream& in, Salesman& salesman);
 

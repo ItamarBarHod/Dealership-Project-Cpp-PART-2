@@ -21,5 +21,4 @@ public:
 	void raisePrice() override;
 	int getType() const override { return eSuperBoatCar; }
 
-	Vehicle* Clone() const { return new SuperBoatCar(*this); }
 };

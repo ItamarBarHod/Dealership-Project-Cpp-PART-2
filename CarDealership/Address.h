@@ -4,8 +4,8 @@
 
 class Address {
 private:
-	char* city;
-	char* street;
+	const char* city;
+	const char* street;
 	unsigned houseNum;
 
 public:

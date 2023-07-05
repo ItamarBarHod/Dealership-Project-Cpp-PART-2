@@ -36,16 +36,21 @@ std::istream& Date::read(std::istream& in)
 
 		auto validDate = [](int day, int month, int year) -> bool
 		{
-			return day >= MIN_DAY && day <= MAX_DAY_ARR[month] && month >= MIN_MONTH && month <= MAX_MONTH
+			return day >= MIN_DAY && day <= MAX_DAY_ARR[month - 1] && month >= MIN_MONTH && month <= MAX_MONTH
 				&& year >= MIN_YEAR && year <= MAX_YEAR;
 		};
 
-		bool isValid;
+		bool isValid = false;
 		do {
 			std::cout << "Enter year (between " << MIN_YEAR << " and " << MAX_YEAR << "): ";
 			in >> dateArr[eYear];
 			std::cout << "Enter month (between " << MIN_MONTH << " and " << MAX_MONTH << "): ";
 			in >> dateArr[eMonth];
+			if (dateArr[eMonth] < 1 || dateArr[eMonth] > 12) // protect month arr print
+			{
+				std::cout << "Bad month, please try again" << std::endl;
+				continue;
+			}
 			std::cout << "Enter day [" << MONTH_ARR[dateArr[eMonth] - 1] << "] (between "
 				<< MIN_DAY << " and " << MAX_DAY_ARR[dateArr[eMonth] - 1] << "): ";
 			in >> dateArr[eDay];

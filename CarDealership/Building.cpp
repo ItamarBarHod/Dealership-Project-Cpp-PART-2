@@ -2,7 +2,12 @@
 
 Building::Building(std::istream& in) : address(in)
 {
-	read(in);
+	try {
+		read(in);
+	}
+	catch (const char* msg) {
+		throw msg;
+	}
 }
 
 std::ostream& operator<<(std::ostream& out, const Building& place)
@@ -27,6 +32,8 @@ std::istream& Building::read(std::istream& in)
 	else {
 		std::cout << "Enter building capacity (max vehicles): ";
 		in >> vehicleCapacity;
+		if (vehicleCapacity < 1)
+			throw "Cant initialize dealership without space for vehicles, please try again";
 		std::cout << "Enter building cost: ";
 		in >> cost;
 	}

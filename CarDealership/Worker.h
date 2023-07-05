@@ -31,7 +31,7 @@ public:
 	int getSalary() const { return salary; }
 	void setSalary(int salary) { this->salary = salary; }
 	void setName(const char* str);
-	Address** getAddress() const { return address; } // const ** <- ignore
+	Address** getAddress() const { return address; }
 	int getNumOfAddress() const { return numOfAddresses; }
 	const Date& getBirthday() const { return birthday; }
 	const char* getName() const { return name; }

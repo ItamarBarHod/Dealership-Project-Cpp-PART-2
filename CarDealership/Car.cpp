@@ -9,6 +9,10 @@ Car::Car(const char* companyName, eColor color, float price, int drivingSpeed, u
 {
 }
 
+Car::~Car()
+{
+}
+
 void Car::raisePrice()
 {
 	price *= factorArr[eCar];

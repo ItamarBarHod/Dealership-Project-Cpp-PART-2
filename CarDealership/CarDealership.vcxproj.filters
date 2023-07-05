@@ -48,13 +48,22 @@
     <ClCompile Include="SuperBoatCar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DealershipFactory.cpp">
+    <ClCompile Include="DSFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="General.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Cleaner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VehicleBubbleUp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VehicleBubbleDown.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VehicleSorter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,10 +101,19 @@
     <ClInclude Include="General.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DealershipFactory.h">
+    <ClInclude Include="DSFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Cleaner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VehicleSorter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VehicleBubbleUp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VehicleBubbleDown.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
