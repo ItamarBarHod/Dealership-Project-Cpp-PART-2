@@ -1,11 +1,6 @@
 #include "General.h"
 #include "VehicleDealership.h"
 #include "DSFactory.h"
-
-#include "SuperBoatCar.h"
-#include "Address.h"
-#include "Date.h"
-#include "Salesman.h"
 #include "VehicleSorter.h"
 
 enum { ePrintDealership = 1, eAddSalesman, eAddVehicle, eSellVehicle, eCleanVehicle, eSellCollection, eBestSalesman, eBestVehicle, eSortVehicles, eExitProgram = 0 };
