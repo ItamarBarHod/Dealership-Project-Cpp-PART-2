@@ -4,26 +4,18 @@
 
 class Address {
 private:
-	const char* city;
-	const char* street;
+	std::string city;
+	std::string street;
 	unsigned houseNum;
 
 public:
 	Address(std::istream& in);
-	Address(const char* city, const char* street, unsigned houseNum);
-	Address(const Address& other);
-	Address(Address&& other) noexcept;
-	const Address& operator=(const Address& other);
-	const Address& operator=(Address&& other) noexcept;
-	~Address();
+	Address(const std::string& city, const std::string& street, unsigned houseNum);
 
 	friend std::istream& operator>>(std::istream& in, Address& address);
 	friend std::ostream& operator<<(std::ostream& out, const Address& address);
 
-	void setStreet(const char* street);
-	void setCity(const char* street);
-	const char* getCity() const { return city; }
-	const char* getStreet() const { return street; }
+	const std::string& getCity() const { return city; }
+	const std::string& getStreet() const { return street; }
 	unsigned getHouseNum() const { return houseNum; }
-
 };

@@ -5,7 +5,8 @@ Cleaner::Cleaner(std::istream& in) : Worker(in)
 	read(in);
 }
 
-Cleaner::Cleaner(const char* name, Address** address, const Date& birthday, int salary, unsigned numOfAddresses, int maxSalesman, int salesmanCount) : Worker(name, address, birthday, salary, numOfAddresses), numOfCleanedVehicles(0)
+Cleaner::Cleaner(const std::string& name, const LinkedList<Address*>& address, const Date& birthday, int salary)
+	: Worker(name, address, birthday, salary), numOfCleanedVehicles(0)
 {
 }
 
@@ -13,7 +14,7 @@ void Cleaner::cleanVehicle(Vehicle& vec)
 {
 	bool isClean = vec.getCleanStatus();
 	if (isClean)
-		throw "Vehicle is already clean";
+		throw std::invalid_argument("Vehicle is already clean");
 	++vec;
 	numOfCleanedVehicles++;
 }

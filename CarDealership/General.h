@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <vector>
 
 class Vehicle;
 class Salesman;

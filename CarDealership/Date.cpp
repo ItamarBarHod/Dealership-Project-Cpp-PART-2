@@ -1,7 +1,7 @@
 #include "Date.h"
 
 const int Date::MAX_DAY_ARR[MAX_MONTH] = { 31,29,31,30,31,30,31,31,30,31,30,31 };
-const char* Date::MONTH_ARR[MAX_MONTH] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+const std::string Date::MONTH_ARR[MAX_MONTH] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 
 Date::Date(std::istream& in)
 {

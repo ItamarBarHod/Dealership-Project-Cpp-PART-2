@@ -5,41 +5,7 @@ Salesman::Salesman(std::istream& in) : Worker(in), numOfDeals(0), totalSales(0)
 	read(in);
 }
 
-Salesman::Salesman(const Salesman& other) : Worker(other), numOfDeals(other.numOfDeals), totalSales(other.totalSales)
-{
-}
-
-Salesman::Salesman(Salesman&& other) noexcept : Worker(std::move(other)), numOfDeals(other.numOfDeals), totalSales(other.totalSales)
-{
-}
-
-Salesman& Salesman::operator=(const Salesman& other)
-{
-	if (this != &other)
-	{
-		Worker::operator=(other);
-		numOfDeals = other.numOfDeals;
-		totalSales = other.totalSales;
-	}
-	return *this;
-}
-
-Salesman& Salesman::operator=(Salesman&& other) noexcept
-{
-	if (this != &other)
-	{
-		Worker::operator=(std::move(other));
-		numOfDeals = other.numOfDeals;
-		totalSales = other.totalSales;
-	}
-	return *this;
-}
-
-Salesman::Salesman(const char* name, Address** address, const Date& birthday, int salary, unsigned numOfAddresses, unsigned numOfDeals, double totalSales) : Worker(name, address, birthday, salary, numOfAddresses), numOfDeals(numOfDeals), totalSales(totalSales)
-{
-}
-
-Salesman::~Salesman()
+Salesman::Salesman(const std::string& name, const LinkedList<Address*>& address, const Date& birthday, int salary, unsigned numOfDeals, double totalSales) : Worker(name, address, birthday, salary), numOfDeals(numOfDeals), totalSales(totalSales)
 {
 }
 

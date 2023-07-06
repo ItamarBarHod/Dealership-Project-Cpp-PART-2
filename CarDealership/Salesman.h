@@ -14,12 +14,7 @@ private:
 
 public:
 	Salesman(std::istream& in);
-	Salesman(const Salesman& other);
-	Salesman(Salesman&& other) noexcept;
-	Salesman& operator=(const Salesman& other);
-	Salesman& operator=(Salesman&& other) noexcept;
-	Salesman(const char* name, Address** address, const Date& birthday, int salary, unsigned numOfAddresses, unsigned numOfDeals, double totalSales);
-	~Salesman();
+	Salesman(const std::string& name, const LinkedList<Address*>& address, const Date& birthday, int salary, unsigned numOfDeals, double totalSales);
 
 	void printSalesman() const;
 	void doSell(const Vehicle& vehicle);

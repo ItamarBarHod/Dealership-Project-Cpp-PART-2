@@ -4,7 +4,7 @@
 
 class VehicleBubbleUp : public VehicleSorter {
 	int getType() const override { return eBubbleUp; }
-	virtual void sortVehicles(Vehicle** vehicleArr, int size) const override;
+	virtual void sortVehicles(std::vector<Vehicle*>&) const override;
 public:
 	VehicleBubbleUp(sortType type);
 };

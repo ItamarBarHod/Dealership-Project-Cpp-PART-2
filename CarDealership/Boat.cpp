@@ -5,7 +5,7 @@ Boat::Boat(std::istream& in) : Vehicle(in)
 	read(in);
 }
 
-Boat::Boat(const char* companyName, eColor color, float price, int sailingSpeed, int numOfSails)
+Boat::Boat(const std::string& companyName, eColor color, float price, int sailingSpeed, int numOfSails)
 	: Vehicle(companyName, color, price), sailingSpeed(sailingSpeed), numOfSails(numOfSails)
 {
 }

@@ -13,7 +13,7 @@ Vehicle* const DSFactory::createVehicle(std::istream& in)
 	else {
 		VehicleDealership* vd = VehicleDealership::getInstance();
 		if (vd->isMaxVehicles())
-			throw "Maximum Vehicles, cannot add more";
+			throw std::out_of_range("Maximum Vehicles, cannot add more");
 		type = chooseVehicleType();
 		newVehicle = DSFactory::createVehicleHelper(in, type);
 	}
@@ -23,31 +23,18 @@ Vehicle* const DSFactory::createVehicle(std::istream& in)
 Salesman* const DSFactory::createSalesman()
 {
 	VehicleDealership* vd = VehicleDealership::getInstance();
-	if (vd->isMaxSalesman())
-		throw "Maximum salesmen, cannot add more";
 	return new Salesman(std::cin);
 }
 
 VehicleDealership* const DSFactory::createDealershipManually()
 {
-	try {
-		char buffer[BUFFER_SIZE];
-		std::cout << "Enter dealership name: ";
-		std::cin.getline(buffer, BUFFER_SIZE);
-		Building building(std::cin); // throws no vehicle space
-		std::cout << "Enter max salesmen: ";
-		int maxSalesmen;
-		std::cin >> maxSalesmen;
-		if (maxSalesmen < 1) // throws no salesmen
-			throw "Cant initialize dealership without salesmen, please try again";
-		std::cin.get();
-		std::cout << "Initializing cleaner: " << std::endl;
-		Cleaner cleaner = Cleaner(std::cin);
-		return new VehicleDealership(buffer, building, maxSalesmen, cleaner);
-	}
-	catch (const char* msg) {
-		throw msg;
-	}
+	std::string buffer;
+	std::cout << "Enter dealership name: ";
+	std::getline(std::cin, buffer);
+	Building building(std::cin);
+	std::cout << "Initializing cleaner: " << std::endl;
+	Cleaner cleaner(std::cin);
+	return new VehicleDealership(buffer, building, cleaner);
 }
 
 Vehicle* const DSFactory::createVehicleHelper(std::istream& in, int type)
@@ -61,6 +48,6 @@ Vehicle* const DSFactory::createVehicleHelper(std::istream& in, int type)
 	case Vehicle::eSuperBoatCar:
 		return new SuperBoatCar(in);
 	default:
-		throw "Error: createVehicle type (should never print)";
+		throw std::exception("Error: createVehicle type (should never print)");
 	}
 }

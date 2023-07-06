@@ -13,7 +13,7 @@ protected:
 
 public:
 	Boat(std::istream& in);
-	Boat(const char* companyName, eColor color, float price, int sailingSpeed, int numOfSails);
+	Boat(const std::string& companyName, eColor color, float price, int sailingSpeed, int numOfSails);
 	virtual ~Boat();
 
 	virtual int getNumOfSails() const { return numOfSails; }

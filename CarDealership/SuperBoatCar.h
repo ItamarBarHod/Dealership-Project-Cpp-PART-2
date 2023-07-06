@@ -13,7 +13,7 @@ protected:
 
 public:
 	SuperBoatCar(std::istream& in);
-	SuperBoatCar(const char* companyName, eColor color, float price, int drivingSpeed, unsigned numOfWheels, int sailingSpeed, unsigned numOfSails);
+	SuperBoatCar(const std::string& companyName, eColor color, float price, int drivingSpeed, unsigned numOfWheels, int sailingSpeed, unsigned numOfSails);
 
 	int getSpeed() const override { return std::max(drivingSpeed, sailingSpeed); }
 	float getMaxSpeed() const { return getSpeed() * turbo; }

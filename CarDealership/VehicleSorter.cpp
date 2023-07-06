@@ -1,6 +1,6 @@
 #include "VehicleSorter.h"
 
-const char* VehicleSorter::strategyName[VehicleSorter::eNofStrategy] = { "BubbleDown", "BubbleUp" };
+const std::string VehicleSorter::strategyName[VehicleSorter::eNofStrategy] = { "BubbleDown", "BubbleUp" };
 
 VehicleSorter::VehicleSorter(sortType type) : type(type)
 {

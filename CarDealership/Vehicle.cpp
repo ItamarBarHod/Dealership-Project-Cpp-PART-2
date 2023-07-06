@@ -2,67 +2,26 @@
 
 const float Vehicle::CLEAN_FACTOR = 1.1F;
 const float Vehicle::factorArr[eNofType] = { 1.4F, 1.3F, 2.0F };
-const char* Vehicle::colorArr[eNofColor] = { "White", "Black", "Blue", "Red", "Yellow", "Purple" };
-const char* Vehicle::vehicleTypeArr[eNofType] = { "Car", "Boat", "SuperBoatCar" };
-const char* Vehicle::manufacturerArr[eNofManufacturer] = { "Ferari", "Skoda", "Honda", "Toyota", "Mazda", "Volvo", "Tesla" };
+const std::string Vehicle::colorArr[eNofColor] = { "White", "Black", "Blue", "Red", "Yellow", "Purple" };
+const std::string Vehicle::vehicleTypeArr[eNofType] = { "Car", "Boat", "SuperBoatCar" };
+const std::string Vehicle::manufacturerArr[eNofManufacturer] = { "Ferari", "Skoda", "Honda", "Toyota", "Mazda", "Volvo", "Tesla" };
 
 Vehicle::Vehicle(std::istream& in)
 {
 	read(in);
 }
 
-Vehicle::Vehicle(const Vehicle& other) : companyName(nullptr), color(other.color), price(other.price), isClean(other.isClean)
+Vehicle::Vehicle(const std::string& companyName, eColor color, float price) : companyName(companyName), color(color), price(price), isClean(false)
 {
-	if (other.companyName)
-		companyName = _strdup(other.companyName);
-}
-
-Vehicle::Vehicle(Vehicle&& other) noexcept : companyName(nullptr), color(other.color), price(other.price), isClean(other.isClean)
-{
-	std::swap(companyName, other.companyName);
-}
-
-Vehicle::Vehicle(const char* companyName, eColor color, float price) : companyName(nullptr), color(color), price(price), isClean(false)
-{
-	if (companyName)
-		this->companyName = _strdup(companyName);
-}
-
-Vehicle& Vehicle::operator=(const Vehicle& other)
-{
-	if (this != &other)
-	{
-		if (other.companyName)
-			companyName = _strdup(other.companyName);
-		color = other.color;
-		price = other.price;
-		isClean = other.isClean;
-	}
-	return *this;
-}
-
-Vehicle& Vehicle::operator=(Vehicle&& other) noexcept
-{
-	if (this != &other)
-	{
-		if (other.companyName)
-			std::swap(companyName, other.companyName);
-		color = other.color;
-		price = other.price;
-		isClean = other.isClean;
-	}
-	return *this;
 }
 
 Vehicle::~Vehicle()
 {
-	if (companyName)
-		delete[] companyName;
 }
 
 bool Vehicle::operator==(const Vehicle& other) const
 {
-	return (strcmp(companyName, other.companyName) == 0 && color == other.color && typeid(*this) == typeid(other));
+	return companyName == other.companyName && color == other.color && typeid(*this) == typeid(other);
 }
 
 const Vehicle& Vehicle::operator++()
@@ -123,7 +82,8 @@ std::ostream& Vehicle::print(std::ostream& out) const
 {
 	if (typeid(out) == typeid(std::ofstream))
 	{
-		out << companyName << " " << color << " " << price << " " << isClean << std::endl;
+		out << companyName << std::endl;
+		out << " " << color << " " << price << " " << isClean << std::endl;
 	}
 	else {
 		printVehicle(); // public
@@ -133,12 +93,10 @@ std::ostream& Vehicle::print(std::ostream& out) const
 
 std::istream& Vehicle::read(std::istream& in)
 {
-	char buffer[BUFFER_SIZE];
 	int temp;
 	if (typeid(in) == typeid(std::ifstream))
 	{
-		in >> buffer;
-		companyName = _strdup(buffer);
+		std::getline(in, companyName);
 		in >> temp >> price;
 		color = (Vehicle::eColor)temp;
 		in >> isClean;
@@ -146,7 +104,7 @@ std::istream& Vehicle::read(std::istream& in)
 	else {
 		isClean = false;
 		std::cout << "Choose company name" << std::endl;
-		companyName = _strdup(manufacturerArr[chooseCompany()]);
+		companyName = manufacturerArr[chooseCompany()];
 		std::cout << "Enter color" << std::endl;
 		color = chooseColor();
 		std::cout << "Enter price: ";

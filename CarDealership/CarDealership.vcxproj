@@ -135,7 +135,9 @@
     <ClCompile Include="Cleaner.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="General.cpp" />
+    <ClCompile Include="LinkedList.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Salesman.cpp" />
     <ClCompile Include="SuperBoatCar.cpp" />
     <ClCompile Include="Vehicle.cpp" />
@@ -152,6 +154,8 @@
     <ClInclude Include="Car.h" />
     <ClInclude Include="General.h" />
     <ClInclude Include="Cleaner.h" />
+    <ClInclude Include="LinkedList.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="VehicleBubbleDown.h" />
     <ClInclude Include="VehicleBubbleUp.h" />
     <ClInclude Include="VehicleDealership.h" />

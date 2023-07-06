@@ -9,7 +9,7 @@ public:
 	const static int MIN_MONTH = 1;
 	const static int MAX_MONTH = 12;
 	const static int MAX_DAY_ARR[MAX_MONTH];
-	const static char* MONTH_ARR[MAX_MONTH];
+	const static std::string MONTH_ARR[MAX_MONTH];
 	const static int MIN_YEAR = 1970;
 	const static int MAX_YEAR = 2023;
 

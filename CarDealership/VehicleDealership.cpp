@@ -5,7 +5,7 @@
 
 VehicleDealership* VehicleDealership::vecDealership = nullptr;
 
-VehicleDealership::VehicleDealership(std::istream& in) : place(in), cleaner(in), name(nullptr), maxSalesman(0), salesmanArr(nullptr), vehicleArr(nullptr), salesmanCount(0), vehicleCount(0), monthlyProfit(0), vSorter(nullptr)
+VehicleDealership::VehicleDealership(std::istream& in) : place(in), cleaner(in), monthlyProfit(0), vSorter(nullptr)
 { //building and cleaner require initlist
 	read(in);
 }
@@ -13,7 +13,7 @@ VehicleDealership::VehicleDealership(std::istream& in) : place(in), cleaner(in),
 void VehicleDealership::setSortStrategy(int strategy)
 {
 	if (strategy < 0 || strategy > 1)
-		throw "No such sort available";
+		throw std::out_of_range("No such sort available");
 	delete vSorter;
 	VehicleSorter::sortType type = (VehicleSorter::sortType)strategy;
 	if (strategy == (int)VehicleSorter::eBubbleDown)
@@ -22,22 +22,12 @@ void VehicleDealership::setSortStrategy(int strategy)
 		vSorter = new VehicleBubbleUp(type);
 }
 
-VehicleDealership::VehicleDealership(const char* name, const Building& place, int maxSalesman, const Cleaner& cleaner)
-	: place(place), maxSalesman(maxSalesman), salesmanArr(nullptr), vehicleArr(nullptr),
-	salesmanCount(0), vehicleCount(0), monthlyProfit(0), name(nullptr), cleaner(cleaner),
+VehicleDealership::VehicleDealership(const std::string& name, const Building& place, const Cleaner& cleaner)
+	: name(name), place(place), monthlyProfit(0), cleaner(cleaner),
 	vSorter(new VehicleBubbleDown(VehicleSorter::eBubbleDown))
 {
-	if (name)
-		this->name = _strdup(name);
-	else
-		this->name = "Default Dealership";
-
 	monthlyProfit -= place.getCost();
 	monthlyProfit -= cleaner.getSalary();
-	maxVehicles = place.getCapacity();
-
-	vehicleArr = new Vehicle * [maxVehicles];
-	salesmanArr = new Salesman * [maxSalesman];
 }
 
 VehicleDealership* VehicleDealership::getInstance()
@@ -45,12 +35,7 @@ VehicleDealership* VehicleDealership::getInstance()
 	if (!vecDealership) {
 		std::ifstream inFile(fileName);
 		if (!inFile) {
-			try {
-				vecDealership = DSFactory::createDealershipManually();
-			}
-			catch (const char* const msg) {
-				throw msg;
-			}
+			vecDealership = DSFactory::createDealershipManually();
 		}
 		else {
 			vecDealership = new VehicleDealership(inFile);
@@ -75,124 +60,114 @@ void VehicleDealership::releaseInstance()
 
 VehicleDealership::~VehicleDealership()
 {
-	if (name)
-		delete[] name;
-	if (vehicleArr)
+	for (int i = 0; i < vehicleArr.size(); i++)
 	{
-		for (int i = 0; i < vehicleCount; i++)
-		{
-			delete vehicleArr[i];
-		}
-		delete[] vehicleArr;
+		delete vehicleArr[i];
 	}
-	if (salesmanArr)
+	for (int i = 0; i < salesmanArr.size(); i++)
 	{
-		for (int i = 0; i < salesmanCount; i++)
-		{
-			delete salesmanArr[i];
-		}
-		delete[] salesmanArr;
+		delete salesmanArr[i];
 	}
 	delete vSorter;
 }
 
 void VehicleDealership::addVehicle(Vehicle* const vehicle)
 {
-	if (vehicleCount == maxVehicles)
-		throw "Maximum amount of vehicles";
-	vehicleArr[vehicleCount] = vehicle;
+	vehicle->raisePrice();
+	vehicleArr.push_back(vehicle);
 	monthlyProfit -= vehicle->getPrice();
-	vehicleArr[vehicleCount]->raisePrice();
-	vehicleCount++;
 }
 
 void VehicleDealership::addSalesman(Salesman* const salesman)
 {
-	if (salesmanCount == maxSalesman)
-		throw "Maximum amount of salesmen";
-	salesmanArr[salesmanCount] = salesman;
-	salesmanCount++;
+	salesmanArr.push_back(salesman);
 	monthlyProfit -= salesman->getSalary();
 }
 
 void VehicleDealership::printDealership() const
 {
 	std::cout << "\n\nDealership name: " << name << " | " << place
-		<< "Monthly profit: " << monthlyProfit << "\nSorting vehicle strategy is: " << vSorter->getStrategyName() << "\nThe cleaner is: \n\n" << cleaner << "\n\n";
-	printSalesmen();
+		<< "Monthly profit: " << monthlyProfit << "\nSorting vehicle strategy is: " << vSorter->getStrategyName()
+		<< "\nThe cleaner is: \n\n" << cleaner << std::endl;;
+	try {
+		printSalesmen();
+	}
+	catch (std::out_of_range& e) {
+		std::cout << e.what() << "\n" << std::endl;
+	}
 	printVehicles();
 }
 
 void VehicleDealership::printSalesmen() const
 {
-	if (salesmanCount == 0)
-		throw "No salesmen exist yet";
+	if (salesmanArr.empty())
+		throw std::out_of_range("No salesmen exist yet");
 
-	std::cout << "There are " << salesmanCount << " salesmen\n\n";
-	for (int i = 0; i < salesmanCount; i++)
+	std::cout << "There are " << salesmanArr.size() << " salesmen\n\n";
+	int i = 1;
+	for (auto& salesman : salesmanArr)
 	{
-		std::cout << "Salesman number " << i + 1 << ": " << *salesmanArr[i] << std::endl;
+		std::cout << "Salesman number " << i++ << ": " << *salesman << std::endl;
 	}
 }
 
 void VehicleDealership::printVehicles() const
 {
-	if (vehicleCount == 0)
-		throw "No vehicles exist yet";
+	if (vehicleArr.empty())
+		throw std::invalid_argument("No vehicles exist yet");
 
-	std::cout << "There are " << vehicleCount << " vehicles\n\n";
-	for (int i = 0; i < vehicleCount; i++)
+	std::cout << "There are " << vehicleArr.size() << " vehicles\n\n";
+	int i = 1;
+	for (auto& vehicle : vehicleArr)
 	{
-		std::cout << "Vehicle number " << i + 1 << ": " << *vehicleArr[i] << std::endl;
+		std::cout << "Vehicle number " << i++ << ": " << vehicle << std::endl;
 	}
 }
 
 void VehicleDealership::sellAllCollectionRandomly()
 {
-	if (salesmanCount == 0)
-		throw "No salesman available to sell collection";
-	if (vehicleCount == 0)
-		throw "No vehicles available to sell";
+	if (salesmanArr.empty())
+		throw std::invalid_argument("No salesman available to sell collection");
+	if (vehicleArr.empty())
+		throw std::invalid_argument("No vehicles available to sell");
 
-	for (int vehicleIndex = vehicleCount - 1; vehicleIndex >= 0; vehicleIndex--)
+	int position = 0, printNumber = 1;
+	for (auto& vehicle : vehicleArr)
 	{
-		int randomSalesmanIndex = rand() % salesmanCount;
+		int randomSalesmanIndex = rand() % salesmanArr.size();
 		const Salesman& salesman = *salesmanArr[randomSalesmanIndex];
 		std::cout << "Salesman " << salesman.getName() << " sold vehicle number: "
-			<< vehicleIndex << " for " << vehicleArr[vehicleIndex]->getPrice() << " dollars" << std::endl;
-		sellVehicle(randomSalesmanIndex, vehicleIndex);
+			<< printNumber++ << " for " << vehicle->getPrice() << " dollars" << std::endl;
+		sellVehicle(randomSalesmanIndex, position);
+		position++;
 	}
 }
 
 void VehicleDealership::sellVehicle(int salesmanIndex, int vehicleIndex)
 {
-	if (salesmanIndex < 0 || salesmanIndex >= salesmanCount)
-		throw "Invalid salesman number";
-	if (vehicleIndex < 0 || vehicleIndex >= vehicleCount)
-		throw "Invalid Vehicle number";
+	if (salesmanIndex < 0 || salesmanIndex >= salesmanArr.size())
+		throw std::out_of_range("Invalid salesman number");
+	if (vehicleIndex < 0 || vehicleIndex >= vehicleArr.size())
+		throw std::out_of_range("Invalid Vehicle number");
 
 	const Vehicle& vehicle = getVehicle(vehicleIndex);
 	Salesman& salesman = getSalesman(salesmanIndex);
 	salesman.doSell(vehicle);
+	monthlyProfit += vehicle.getPrice();
 
 	delete vehicleArr[vehicleIndex];
-	for (int i = vehicleIndex; i < vehicleCount; i++) // fix vehicle arr
-	{
-		vehicleArr[i] = vehicleArr[i + 1];
-	}
-	vehicleCount--;
 }
 
 void VehicleDealership::sortVehicles(int strategy)
 {
 	setSortStrategy(strategy);
-	vSorter->sortVehicles(vehicleArr, vehicleCount);
+	vSorter->sortVehicles(vehicleArr);
 }
 
 Vehicle& VehicleDealership::getVehicle(int index) const
 {
-	if (index < 0 || index >= vehicleCount)
-		throw "No such vehicle index";
+	if (index < 0 || index >= vehicleArr.size())
+		throw std::out_of_range("No such vehicle index");
 	return *vehicleArr[index];
 }
 
@@ -203,26 +178,27 @@ Salesman& VehicleDealership::getSalesman(int index) const
 
 const Vehicle& VehicleDealership::getBestVehicle() const
 {
-	if (vehicleCount == 0)
-		throw "There are no vehicles yet";
-	const Vehicle* temp = vehicleArr[0];
-	for (int i = 1; i < vehicleCount; i++)
+	if (vehicleArr.empty())
+		throw std::invalid_argument("There are no vehicles yet");
+
+	const Vehicle* temp = vehicleArr.front();
+	for (auto& vehicle : vehicleArr)
 	{
-		if (*vehicleArr[i] > *temp)
-			temp = vehicleArr[i];
+		if (*vehicle > *temp)
+			temp = vehicle;
 	}
 	return *temp;
 }
 
 const Salesman& VehicleDealership::getBestSalesman() const
 {
-	if (salesmanCount == 0)
-		throw "There are no salesmen yet";
-	Salesman* temp = salesmanArr[0];
-	for (int i = 1; i < salesmanCount; i++)
+	if (salesmanArr.empty())
+		throw std::invalid_argument("There are no salesmen yet");
+	const Salesman* temp = salesmanArr.front();
+	for (auto& salesman : salesmanArr)
 	{
-		if (*salesmanArr[i] >= *temp)
-			temp = salesmanArr[i];
+		if (*salesman >= *temp)
+			temp = salesman;
 	}
 	return *temp;
 }
@@ -231,20 +207,19 @@ std::ostream& operator<<(std::ostream& out, const VehicleDealership& dealership)
 {
 	if (typeid(out) == typeid(std::ofstream))
 	{
+		int vehicleSize = (int)dealership.vehicleArr.size();
 		out << dealership.place << std::endl;
 		out << dealership.cleaner << std::endl;
 		out << dealership.name << std::endl;
-		out << dealership.monthlyProfit << " " << dealership.maxSalesman << " "
-			<< dealership.salesmanCount << std::endl;
-		for (int i = 0; i < dealership.salesmanCount; i++)
+		out << dealership.monthlyProfit << " " << dealership.salesmanArr.size() << " " << std::endl;
+		for (auto& salesman : dealership.salesmanArr)
 		{
-			out << *dealership.salesmanArr[i];
+			out << *salesman;
 		}
-		out << dealership.maxVehicles << " " << dealership.vehicleCount << std::endl;
-		for (int i = 0; i < dealership.vehicleCount; i++)
+		out << dealership.vehicleArr.size() << std::endl;
+		for (auto& vehicle : dealership.vehicleArr)
 		{
-			out << dealership.vehicleArr[i]->getType() << " ";
-			out << *dealership.vehicleArr[i];
+			out << *vehicle;
 		}
 		out << (int)dealership.vSorter->getType();
 	}
@@ -256,26 +231,20 @@ std::ostream& operator<<(std::ostream& out, const VehicleDealership& dealership)
 
 std::istream& VehicleDealership::read(std::istream& in)
 {
-	char buffer[BUFFER_SIZE];
+	int salesmanCount, vehicleCount;
 	in.get();
-	in.getline(buffer, BUFFER_SIZE);
-	name = _strdup(buffer);
+	std::getline(in, name);
 	in >> monthlyProfit;
-	in >> maxSalesman >> salesmanCount;
-	salesmanArr = new Salesman * [maxSalesman];
-	if (maxSalesman >= salesmanCount) {
-		for (int i = 0; i < salesmanCount; i++)
-		{
-			salesmanArr[i] = new Salesman(in);
-		}
+	in >> salesmanCount;
+	salesmanArr.reserve(salesmanCount);
+	for (int i = 0; i < salesmanCount; i++)
+	{
+		salesmanArr.push_back(new Salesman(in));
 	}
-	in >> maxVehicles >> vehicleCount;
-	vehicleArr = new Vehicle * [maxVehicles];
-	if (maxVehicles >= vehicleCount) {
-		for (int i = 0; i < vehicleCount; i++)
-		{
-			vehicleArr[i] = DSFactory::createVehicle(in);
-		}
+	in >> vehicleCount;
+	for (int i = 0; i < vehicleCount; i++)
+	{
+		vehicleArr.push_back(DSFactory::createVehicle(in));
 	}
 	int strategy;
 	in >> strategy;

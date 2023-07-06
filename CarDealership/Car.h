@@ -13,7 +13,7 @@ protected:
 
 public:
 	Car(std::istream& in);
-	Car(const char* companyName, eColor color, float price, int drivingSpeed, unsigned numOfWheels);
+	Car(const std::string& companyName, eColor color, float price, int drivingSpeed, unsigned numOfWheels);
 	virtual ~Car();
 
 	virtual int getNumOfWheels() const { return numOfWheels; }

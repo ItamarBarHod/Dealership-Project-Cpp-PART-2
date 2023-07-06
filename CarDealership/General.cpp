@@ -56,17 +56,20 @@ bool mainMenu(int option)
 		case eExitProgram:
 			return false;
 		default:
-			throw "No such option!\n";
+			throw std::invalid_argument("No such option!\n");
 		}
 	}
-	catch (const char* const msg) {
-		std::cout << msg << std::endl;
+	catch (const std::invalid_argument& e) {
+		std::cout << e.what() << std::endl;
+	}
+	catch (const std::out_of_range& e) {
+		std::cout << e.what() << std::endl;
 	}
 	catch (const std::exception& e) {
 		std::cout << e.what() << std::endl;
 	}
 	catch (...) {
-		terminate(); // custom
+		terminate();
 	}
 	return true;
 }

@@ -2,24 +2,20 @@
 
 #include "Date.h"
 #include "Address.h"
+#include "LinkedList.h"
 
 class Worker {
 protected:
 	static unsigned id;
 	unsigned workerID;
-	char* name;
-	Address** address;
-	int numOfAddresses;
+	std::string name;
+	LinkedList<Address*> addressList;
 	Date birthday;
 	int salary;
 
 protected:
 	Worker(std::istream& in);
-	Worker(const char* pName, Address** address, const Date& birthday, int salary, int numOfAddresses);
-	Worker(const Worker& other);
-	Worker(Worker&& other) noexcept;
-	Worker& operator=(const Worker& other);
-	Worker& operator=(Worker&& other) noexcept;
+	Worker(const std::string& pName, const LinkedList<Address*>& address, const Date& birthday, int salary);
 	virtual ~Worker();
 
 	virtual std::ostream& print(std::ostream& out) const;
@@ -30,9 +26,7 @@ public:
 
 	int getSalary() const { return salary; }
 	void setSalary(int salary) { this->salary = salary; }
-	void setName(const char* str);
-	Address** getAddress() const { return address; }
-	int getNumOfAddress() const { return numOfAddresses; }
+	int getNumOfAddress() const { return addressList.size(); }
 	const Date& getBirthday() const { return birthday; }
-	const char* getName() const { return name; }
+	const std::string& getName() const { return name; }
 };

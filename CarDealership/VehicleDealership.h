@@ -2,6 +2,7 @@
 
 #include "Building.h"
 #include "Cleaner.h"
+#include "LinkedList.h"
 
 class VehicleSorter;
 
@@ -19,34 +20,31 @@ private:
 
 	std::istream& read(std::istream& in);
 private:
-	const char* name;
+	std::string name;
 	double monthlyProfit;
 	Building place;
 	Cleaner cleaner;
-	Salesman** salesmanArr;
-	int salesmanCount;
-	int maxSalesman;
-	Vehicle** vehicleArr;
-	int vehicleCount;
-	int maxVehicles;
+	std::vector<Salesman*> salesmanArr;
+	std::vector<Vehicle*> vehicleArr;
 	VehicleSorter* vSorter;
 
 public:
-	VehicleDealership(const char* name, const Building& place, int maxSalesman, const Cleaner& cleaner);
+	VehicleDealership(const std::string& name, const Building& place, const Cleaner& cleaner);
 	virtual ~VehicleDealership();
 
 	friend std::ostream& operator<<(std::ostream& out, const VehicleDealership& dealership);
 	friend std::istream& operator>>(std::istream& in, VehicleDealership& dealership);
 
 	double getMonthlyProfit() const { return monthlyProfit; }
-	int getVehicleCount() const { return vehicleCount; }
-	int getSalesmanCount() const { return salesmanCount; }
+	int getVehicleCount() const { return (int)vehicleArr.size(); }
+	int getSalesmanCount() const { return (int)salesmanArr.size(); }
 	Cleaner& getCleaner() { return cleaner; } // non const
 	const VehicleSorter& getVehicleSorter() const { return *vSorter; }
 	const Vehicle& getBestVehicle() const;
 	const Salesman& getBestSalesman() const;
 	Vehicle& getVehicle(int index) const; // non const return
 	Salesman& getSalesman(int index) const; // non const return
+	bool isMaxVehicles() const { return vehicleArr.size() == place.getCapacity(); }
 
 	void addVehicle(Vehicle* const vehicle); // const address
 	void addSalesman(Salesman* const salesman);
@@ -59,6 +57,4 @@ public:
 	void sellVehicle(int salesmanIndex, int vehicleIndex);
 
 	void sortVehicles(int strategy);
-	bool isMaxSalesman() const { return salesmanCount == maxSalesman; }
-	bool isMaxVehicles() const { return vehicleCount == maxVehicles; }
 };

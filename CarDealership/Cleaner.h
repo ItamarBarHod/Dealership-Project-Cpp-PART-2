@@ -13,7 +13,7 @@ private:
 
 public:
 	Cleaner(std::istream& in);
-	Cleaner(const char* name, Address** address, const Date& birthday, int salary, unsigned numOfAddresses, int maxSalesman, int salesmanCount);
+	Cleaner(const std::string& name, const LinkedList<Address*>& address, const Date& birthday, int salary);
 
 	friend std::istream& operator>>(std::istream& in, Cleaner& cleaner);
 

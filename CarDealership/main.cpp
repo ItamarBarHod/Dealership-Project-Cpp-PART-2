@@ -14,8 +14,8 @@ int main()
 			VehicleDealership* dealership = VehicleDealership::getInstance(); // throws on manual init if 0 salesmen / vehicle space
 			badInit = false;
 		}
-		catch (const char* const msg) {
-			std::cout << msg << std::endl;
+		catch (const std::invalid_argument& e) {
+			std::cout << e.what() << std::endl;
 			std::cin.get();
 		}
 		catch (const std::exception& e) { // fatal error, should never be here

@@ -1,91 +1,28 @@
 #include "Address.h"
 
-Address::Address(std::istream& in) : city(nullptr), street(nullptr), houseNum(0)
+Address::Address(std::istream& in) : houseNum(0)
 {
 	in >> *this;
 }
-Address::Address(const char* city, const char* street, unsigned houseNum) : houseNum(houseNum)
+Address::Address(const std::string& city, const std::string& street, unsigned houseNum) : city(city), street(street), houseNum(houseNum)
 {
-	setCity(city);
-	setStreet(street);
-}
-Address::Address(const Address& other) : street(nullptr), city(nullptr)
-{
-	*this = other;
-}
-Address::Address(Address&& other) noexcept : city(nullptr), street(nullptr)
-{
-	std::swap(city, other.city);
-	std::swap(street, other.street);
-	houseNum = other.houseNum;
-}
-const Address& Address::operator=(const Address& other)
-{
-	if (this != &other)
-	{
-		setCity(other.city);
-		setStreet(other.street);
-		houseNum = other.houseNum;
-	}
-	return *this;
-}
-const Address& Address::operator=(Address&& other) noexcept
-{
-	if (this != &other)
-	{
-		std::swap(city, other.city);
-		std::swap(street, other.street);
-		houseNum = other.houseNum;
-	}
-	return *this;
-}
-Address::~Address()
-{
-	if (city)
-		delete[] city;
-	if (street)
-		delete[] street;
-}
-
-void Address::setStreet(const char* str)
-{
-	if (street)
-		delete[] street;
-	street = nullptr;
-	if (str)
-		street = _strdup(str);
-}
-
-
-void Address::setCity(const char* str)
-{
-	if (city)
-		delete[] city;
-	city = nullptr;
-	if (str)
-		city = _strdup(str);
 }
 
 std::istream& operator>>(std::istream& in, Address& address)
 {
-	char buffer[BUFFER_SIZE];
 	if (typeid(in) == typeid(std::ifstream))
 	{
-		in.getline(buffer, BUFFER_SIZE);
-		address.city = _strdup(buffer);
-		in.getline(buffer, BUFFER_SIZE);
-		address.street = _strdup(buffer);
+		std::getline(in, address.city);
+		std::getline(in, address.street);
 		in >> address.houseNum;
 		in.get();
 	}
 	else {
 		std::cout << "Creating address!" << std::endl;
 		std::cout << "Enter city: ";
-		in.getline(buffer, BUFFER_SIZE);
-		address.city = _strdup(buffer);
+		std::getline(in, address.city);
 		std::cout << "Enter street: ";
-		in.getline(buffer, BUFFER_SIZE);
-		address.street = _strdup(buffer);
+		std::getline(in, address.street);
 		std::cout << "Enter house number: ";
 		in >> address.houseNum;
 	}

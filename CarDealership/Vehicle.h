@@ -9,14 +9,14 @@ public:
 	typedef enum { eCar, eBoat, eSuperBoatCar, eNofType } eVehicleType;
 	typedef enum { eWhite, eBlack, eBlue, eRed, eYellow, ePurple, eNofColor } eColor;
 	typedef enum { eFerari, eSkoda, eHonda, eToyota, eMazda, eVolvo, eTesla, eNofManufacturer } eManufacturer;
-	static const char* vehicleTypeArr[eNofType];
+	static const std::string vehicleTypeArr[eNofType];
 protected:
 	static const float factorArr[eNofType];
-	static const char* colorArr[eNofColor];
-	static const char* manufacturerArr[eNofManufacturer];
+	static const std::string colorArr[eNofColor];
+	static const std::string manufacturerArr[eNofManufacturer];
 
 protected:
-	const char* companyName;
+	std::string companyName;
 	eColor color;
 	float price;
 	bool isClean;
@@ -34,24 +34,18 @@ private:
 
 public:
 	Vehicle(std::istream& in);
-	Vehicle(const char* companyName, eColor color, float price);
-	Vehicle(const Vehicle& other);
-	Vehicle(Vehicle&& other) noexcept;
-	Vehicle& operator=(const Vehicle& other);
-	Vehicle& operator=(Vehicle&& other) noexcept;
+	Vehicle(const std::string& companyName, eColor color, float price);
 	virtual ~Vehicle();
 
 	bool operator>(const Vehicle& other) const { return price > other.price; }
 	bool operator<(const Vehicle& other) const { return price < other.price; }
 	bool operator==(const Vehicle& other) const;
-
 	const Vehicle& operator++(); // non const
-
 	friend std::ostream& operator<<(std::ostream& out, const Vehicle& vehicle);
 
 	float getPrice() const { return price; }
-	const char* getColor() const { return colorArr[color]; }
-	const char* getCompanyName() const { return companyName; }
+	const std::string& getColor() const { return colorArr[color]; }
+	const std::string& getCompanyName() const { return companyName; }
 	bool getCleanStatus() const { return isClean; }
 
 	virtual void raisePrice() = 0;
