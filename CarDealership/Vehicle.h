@@ -24,7 +24,6 @@ protected:
 protected:
 	virtual std::ostream& print(std::ostream& out) const;
 	virtual std::istream& read(std::istream& in);
-	virtual int getSpeed() const = 0;
 
 private:
 	void printManufacturer() const;
@@ -34,12 +33,10 @@ private:
 
 public:
 	Vehicle(std::istream& in);
-	Vehicle(const std::string& companyName, eColor color, float price);
 	virtual ~Vehicle();
 
 	bool operator>(const Vehicle& other) const { return price > other.price; }
 	bool operator<(const Vehicle& other) const { return price < other.price; }
-	bool operator==(const Vehicle& other) const;
 	const Vehicle& operator++(); // non const
 	friend std::ostream& operator<<(std::ostream& out, const Vehicle& vehicle);
 

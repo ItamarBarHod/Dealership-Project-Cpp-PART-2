@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "Vehicle.h"
 
 class VehicleSorter {

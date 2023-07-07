@@ -4,9 +4,6 @@ Address::Address(std::istream& in) : houseNum(0)
 {
 	in >> *this;
 }
-Address::Address(const std::string& city, const std::string& street, unsigned houseNum) : city(city), street(street), houseNum(houseNum)
-{
-}
 
 std::istream& operator>>(std::istream& in, Address& address)
 {
@@ -23,8 +20,10 @@ std::istream& operator>>(std::istream& in, Address& address)
 		std::getline(in, address.city);
 		std::cout << "Enter street: ";
 		std::getline(in, address.street);
-		std::cout << "Enter house number: ";
+		std::cout << "Enter house number (non negative): ";
 		in >> address.houseNum;
+		if (address.houseNum < 0)
+			throw std::invalid_argument("Address initialization failed: cant have negative house number");
 	}
 	return in;
 }

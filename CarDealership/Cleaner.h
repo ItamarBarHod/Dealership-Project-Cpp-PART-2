@@ -13,9 +13,6 @@ private:
 
 public:
 	Cleaner(std::istream& in);
-	Cleaner(const std::string& name, const LinkedList<Address*>& address, const Date& birthday, int salary);
-
-	friend std::istream& operator>>(std::istream& in, Cleaner& cleaner);
 
 	void cleanVehicle(Vehicle& vec); // non const
 };

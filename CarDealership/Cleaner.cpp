@@ -5,11 +5,6 @@ Cleaner::Cleaner(std::istream& in) : Worker(in)
 	read(in);
 }
 
-Cleaner::Cleaner(const std::string& name, const LinkedList<Address*>& address, const Date& birthday, int salary)
-	: Worker(name, address, birthday, salary), numOfCleanedVehicles(0)
-{
-}
-
 void Cleaner::cleanVehicle(Vehicle& vec)
 {
 	bool isClean = vec.getCleanStatus();
@@ -39,9 +34,4 @@ std::istream& Cleaner::read(std::istream& in)
 		in >> numOfCleanedVehicles;
 	}
 	return in;
-}
-
-std::istream& operator>>(std::istream& in, Cleaner& cleaner)
-{
-	return cleaner.read(in);
 }

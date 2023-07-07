@@ -25,17 +25,14 @@ std::istream& Building::read(std::istream& in)
 		in >> vehicleCapacity >> cost;
 	}
 	else {
-		std::cout << "Enter building capacity (max vehicles): ";
+		std::cout << "Enter building capacity (max vehicles, minimum 1): ";
 		in >> vehicleCapacity;
 		if (vehicleCapacity < 1)
-			throw std::invalid_argument("Cant initialize dealership without space for vehicles, please try again");
-		std::cout << "Enter building cost: ";
+			throw std::invalid_argument("Building initialization failed: no space for vehicles");
+		std::cout << "Enter building cost (non negative): ";
 		in >> cost;
+		if (cost < 0)
+			throw std::invalid_argument("Building initialization failed: negative building cost");
 	}
 	return in;
-}
-
-std::istream& operator>>(std::istream& in, Building& place)
-{
-	return place.read(in);
 }

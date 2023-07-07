@@ -3,13 +3,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
 
 class Vehicle;
 class Salesman;
 
-static const char fileName[] = "Dealership.txt";
-static const int BUFFER_SIZE = 100;
+const std::string fileName = "Dealership.txt";
 
 bool mainMenu(int option);
 

@@ -5,10 +5,6 @@ Car::Car(std::istream& in) : Vehicle(in)
 	read(in);
 }
 
-Car::Car(const std::string& companyName, eColor color, float price, int drivingSpeed, unsigned numOfWheels) : Vehicle(companyName, color, price), drivingSpeed(drivingSpeed), numOfWheels(numOfWheels)
-{
-}
-
 Car::~Car()
 {
 }
@@ -41,8 +37,12 @@ std::istream& Car::read(std::istream& in)
 	else {
 		std::cout << "Enter driving speed : ";
 		in >> drivingSpeed;
+		if (drivingSpeed < 0)
+			throw std::invalid_argument("Vehicle initialization failed: cant have negative speed");
 		std::cout << "Enter number of wheels: ";
 		in >> numOfWheels;
+		if (numOfWheels < 0)
+			throw std::invalid_argument("Vehicle initialization failed: cant have negative number of wheels");
 	}
 	return in;
 }

@@ -5,7 +5,7 @@
 class Car : virtual public Vehicle {
 protected:
 	int drivingSpeed;
-	unsigned numOfWheels;
+	int numOfWheels;
 
 protected:
 	virtual std::ostream& print(std::ostream& out) const override;
@@ -13,7 +13,6 @@ protected:
 
 public:
 	Car(std::istream& in);
-	Car(const std::string& companyName, eColor color, float price, int drivingSpeed, unsigned numOfWheels);
 	virtual ~Car();
 
 	virtual int getNumOfWheels() const { return numOfWheels; }

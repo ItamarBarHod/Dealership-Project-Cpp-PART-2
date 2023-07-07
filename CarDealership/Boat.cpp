@@ -5,11 +5,6 @@ Boat::Boat(std::istream& in) : Vehicle(in)
 	read(in);
 }
 
-Boat::Boat(const std::string& companyName, eColor color, float price, int sailingSpeed, int numOfSails)
-	: Vehicle(companyName, color, price), sailingSpeed(sailingSpeed), numOfSails(numOfSails)
-{
-}
-
 Boat::~Boat()
 {
 }
@@ -36,8 +31,12 @@ std::istream& Boat::read(std::istream& in)
 	else {
 		std::cout << "Enter sailing speed: ";
 		in >> sailingSpeed;
+		if (sailingSpeed < 0)
+			throw std::invalid_argument("Vehicle initialization failed: cant have negative speed");
 		std::cout << "Enter number of sails: ";
 		in >> numOfSails;
+		if (numOfSails < 0)
+			throw std::invalid_argument("Vehicle initialization failed: cant have negative number of sails");
 	}
 	return in;
 }

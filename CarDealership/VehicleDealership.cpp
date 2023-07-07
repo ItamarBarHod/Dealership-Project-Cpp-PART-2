@@ -60,22 +60,22 @@ void VehicleDealership::releaseInstance()
 
 VehicleDealership::~VehicleDealership()
 {
-	for (int i = 0; i < vehicleArr.size(); i++)
+	for (auto& vehicle : vehicleArr)
 	{
-		delete vehicleArr[i];
+		delete vehicle;
 	}
-	for (int i = 0; i < salesmanArr.size(); i++)
+	for (auto& salesman : salesmanArr)
 	{
-		delete salesmanArr[i];
+		delete salesman;
 	}
 	delete vSorter;
 }
 
 void VehicleDealership::addVehicle(Vehicle* const vehicle)
 {
-	vehicle->raisePrice();
 	vehicleArr.push_back(vehicle);
 	monthlyProfit -= vehicle->getPrice();
+	vehicle->raisePrice();
 }
 
 void VehicleDealership::addSalesman(Salesman* const salesman)
@@ -120,7 +120,7 @@ void VehicleDealership::printVehicles() const
 	int i = 1;
 	for (auto& vehicle : vehicleArr)
 	{
-		std::cout << "Vehicle number " << i++ << ": " << vehicle << std::endl;
+		std::cout << "Vehicle number " << i++ << ": " << *vehicle << std::endl;
 	}
 }
 
@@ -131,15 +131,17 @@ void VehicleDealership::sellAllCollectionRandomly()
 	if (vehicleArr.empty())
 		throw std::invalid_argument("No vehicles available to sell");
 
-	int position = 0, printNumber = 1;
+	int printNumber = 1;
 	for (auto& vehicle : vehicleArr)
 	{
 		int randomSalesmanIndex = rand() % salesmanArr.size();
+		int lastIndex = (int)vehicleArr.size() - 1;
 		const Salesman& salesman = *salesmanArr[randomSalesmanIndex];
+
 		std::cout << "Salesman " << salesman.getName() << " sold vehicle number: "
 			<< printNumber++ << " for " << vehicle->getPrice() << " dollars" << std::endl;
-		sellVehicle(randomSalesmanIndex, position);
-		position++;
+
+		sellVehicle(randomSalesmanIndex, lastIndex);
 	}
 }
 
@@ -154,8 +156,7 @@ void VehicleDealership::sellVehicle(int salesmanIndex, int vehicleIndex)
 	Salesman& salesman = getSalesman(salesmanIndex);
 	salesman.doSell(vehicle);
 	monthlyProfit += vehicle.getPrice();
-
-	delete vehicleArr[vehicleIndex];
+	vehicleArr.erase(vehicleArr.begin() + vehicleIndex);
 }
 
 void VehicleDealership::sortVehicles(int strategy)
@@ -173,6 +174,8 @@ Vehicle& VehicleDealership::getVehicle(int index) const
 
 Salesman& VehicleDealership::getSalesman(int index) const
 {
+	if (index < 0 || index >= salesmanArr.size())
+		throw std::out_of_range("No such salesman index");
 	return *salesmanArr[index];
 }
 
@@ -219,6 +222,7 @@ std::ostream& operator<<(std::ostream& out, const VehicleDealership& dealership)
 		out << dealership.vehicleArr.size() << std::endl;
 		for (auto& vehicle : dealership.vehicleArr)
 		{
+			out << vehicle->getType() << " ";
 			out << *vehicle;
 		}
 		out << (int)dealership.vSorter->getType();
@@ -249,10 +253,6 @@ std::istream& VehicleDealership::read(std::istream& in)
 	int strategy;
 	in >> strategy;
 	setSortStrategy(strategy);
-	return in;
-}
 
-std::istream& operator>>(std::istream& in, VehicleDealership& dealership)
-{
-	return dealership.read(in);
+	return in;
 }

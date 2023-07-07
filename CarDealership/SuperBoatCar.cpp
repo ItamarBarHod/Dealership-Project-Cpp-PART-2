@@ -6,11 +6,6 @@ SuperBoatCar::SuperBoatCar(std::istream& in) : Vehicle(in), Car(in), Boat(in)
 {
 }
 
-
-SuperBoatCar::SuperBoatCar(const std::string& companyName, eColor color, float price, int drivingSpeed, unsigned numOfWheels, int sailingSpeed, unsigned numOfSails) : Vehicle(companyName, color, price), Car(companyName, color, price, drivingSpeed, numOfWheels), Boat(companyName, color, price, sailingSpeed, numOfSails)
-{
-}
-
 void SuperBoatCar::raisePrice()
 {
 	price *= factorArr[eSuperBoatCar];

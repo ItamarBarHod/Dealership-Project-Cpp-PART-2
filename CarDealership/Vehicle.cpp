@@ -11,17 +11,8 @@ Vehicle::Vehicle(std::istream& in)
 	read(in);
 }
 
-Vehicle::Vehicle(const std::string& companyName, eColor color, float price) : companyName(companyName), color(color), price(price), isClean(false)
-{
-}
-
 Vehicle::~Vehicle()
 {
-}
-
-bool Vehicle::operator==(const Vehicle& other) const
-{
-	return companyName == other.companyName && color == other.color && typeid(*this) == typeid(other);
 }
 
 const Vehicle& Vehicle::operator++()
@@ -33,7 +24,7 @@ const Vehicle& Vehicle::operator++()
 
 void Vehicle::printVehicle() const
 {
-	std::cout << "\nCompany name: " << companyName << ", Color: " << colorArr[color] << ", Price: " << price
+	std::cout << "\nCompany name:" << companyName << ", Color: " << colorArr[color] << ", Price: " << price
 		<< ", is clean: " << std::boolalpha << isClean << std::endl;
 	//boolalpha - prints true false instead of 0/1
 }
@@ -109,6 +100,8 @@ std::istream& Vehicle::read(std::istream& in)
 		color = chooseColor();
 		std::cout << "Enter price: ";
 		in >> price;
+		if (price < 0)
+			throw std::invalid_argument("Vehicle initialization failed: cant have negative price");;
 	}
 	return in;
 }

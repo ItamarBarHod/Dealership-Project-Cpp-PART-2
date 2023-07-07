@@ -4,14 +4,14 @@
 #include <fstream>
 
 class Date {
-public:
-	const static int MIN_DAY = 1;
-	const static int MIN_MONTH = 1;
-	const static int MAX_MONTH = 12;
-	const static int MAX_DAY_ARR[MAX_MONTH];
-	const static std::string MONTH_ARR[MAX_MONTH];
-	const static int MIN_YEAR = 1970;
-	const static int MAX_YEAR = 2023;
+private:
+	static constexpr int MIN_DAY = 1;
+	static constexpr int MIN_MONTH = 1;
+	static constexpr int MAX_MONTH = 12;
+	static const int MAX_DAY_ARR[MAX_MONTH];
+	static const std::string MONTH_ARR[MAX_MONTH];
+	static constexpr int MIN_YEAR = 1970;
+	static constexpr int MAX_YEAR = 2023;
 
 private:
 	int year;
@@ -27,7 +27,4 @@ public:
 	friend std::ostream& operator<<(std::ostream& out, const Date& date);
 	friend std::istream& operator>>(std::istream& in, Date& date);
 
-	int getYear() const { return year; }
-	unsigned getMonth() const { return month; }
-	unsigned getDay() const { return day; }
 };

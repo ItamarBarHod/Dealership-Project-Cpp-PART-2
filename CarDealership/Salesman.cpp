@@ -5,10 +5,6 @@ Salesman::Salesman(std::istream& in) : Worker(in), numOfDeals(0), totalSales(0)
 	read(in);
 }
 
-Salesman::Salesman(const std::string& name, const LinkedList<Address*>& address, const Date& birthday, int salary, unsigned numOfDeals, double totalSales) : Worker(name, address, birthday, salary), numOfDeals(numOfDeals), totalSales(totalSales)
-{
-}
-
 void Salesman::printSalesman() const
 {
 	Worker::print(std::cout);
@@ -54,9 +50,4 @@ const double Salesman::getAverageProfit() const
 	if (numOfDeals == 0)
 		return 0;
 	return totalSales / numOfDeals;
-}
-
-std::istream& operator>>(std::istream& in, Salesman& salesman)
-{
-	return salesman.read(in);
 }

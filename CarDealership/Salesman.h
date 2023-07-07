@@ -14,12 +14,9 @@ private:
 
 public:
 	Salesman(std::istream& in);
-	Salesman(const std::string& name, const LinkedList<Address*>& address, const Date& birthday, int salary, unsigned numOfDeals, double totalSales);
 
 	void printSalesman() const;
 	void doSell(const Vehicle& vehicle);
-
-	friend std::istream& operator>>(std::istream& in, Salesman& salesman);
 
 	const double getAverageProfit() const;
 	bool operator>=(const Salesman& other) const { return getAverageProfit() >= other.getAverageProfit(); }

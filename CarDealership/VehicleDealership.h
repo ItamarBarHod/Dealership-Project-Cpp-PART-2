@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "Building.h"
 #include "Cleaner.h"
 #include "LinkedList.h"
@@ -33,7 +34,10 @@ public:
 	virtual ~VehicleDealership();
 
 	friend std::ostream& operator<<(std::ostream& out, const VehicleDealership& dealership);
-	friend std::istream& operator>>(std::istream& in, VehicleDealership& dealership);
+
+	void printDealership() const;
+	void printVehicles() const;
+	void printSalesmen() const;
 
 	double getMonthlyProfit() const { return monthlyProfit; }
 	int getVehicleCount() const { return (int)vehicleArr.size(); }
@@ -48,10 +52,6 @@ public:
 
 	void addVehicle(Vehicle* const vehicle); // const address
 	void addSalesman(Salesman* const salesman);
-
-	void printDealership() const;
-	void printVehicles() const;
-	void printSalesmen() const;
 
 	void sellAllCollectionRandomly();
 	void sellVehicle(int salesmanIndex, int vehicleIndex);

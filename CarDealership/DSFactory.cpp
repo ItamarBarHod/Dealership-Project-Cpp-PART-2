@@ -32,6 +32,7 @@ VehicleDealership* const DSFactory::createDealershipManually()
 	std::cout << "Enter dealership name: ";
 	std::getline(std::cin, buffer);
 	Building building(std::cin);
+	std::cin.get();
 	std::cout << "Initializing cleaner: " << std::endl;
 	Cleaner cleaner(std::cin);
 	return new VehicleDealership(buffer, building, cleaner);
