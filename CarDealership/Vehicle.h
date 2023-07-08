@@ -22,6 +22,7 @@ protected:
 	bool isClean;
 
 protected:
+	Vehicle(std::istream& in);
 	virtual std::ostream& print(std::ostream& out) const;
 	virtual std::istream& read(std::istream& in);
 
@@ -32,7 +33,6 @@ private:
 	eColor chooseColor() const;
 
 public:
-	Vehicle(std::istream& in);
 	virtual ~Vehicle();
 
 	bool operator>(const Vehicle& other) const { return price > other.price; }

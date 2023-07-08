@@ -69,6 +69,7 @@ bool mainMenu(int option)
 		std::cout << e.what() << std::endl;
 	}
 	catch (...) {
+		VehicleDealership::releaseInstance();
 		terminate();
 	}
 	return true;

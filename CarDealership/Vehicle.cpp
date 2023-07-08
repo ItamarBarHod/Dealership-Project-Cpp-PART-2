@@ -98,7 +98,7 @@ std::istream& Vehicle::read(std::istream& in)
 		companyName = manufacturerArr[chooseCompany()];
 		std::cout << "Enter color" << std::endl;
 		color = chooseColor();
-		std::cout << "Enter price: ";
+		std::cout << "Enter price (non negative): ";
 		in >> price;
 		if (price < 0)
 			throw std::invalid_argument("Vehicle initialization failed: cant have negative price");;

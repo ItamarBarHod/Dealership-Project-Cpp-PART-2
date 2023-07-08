@@ -29,11 +29,11 @@ std::istream& Boat::read(std::istream& in)
 		in >> sailingSpeed >> numOfSails;
 	}
 	else {
-		std::cout << "Enter sailing speed: ";
+		std::cout << "Enter sailing speed (non negative): ";
 		in >> sailingSpeed;
 		if (sailingSpeed < 0)
 			throw std::invalid_argument("Vehicle initialization failed: cant have negative speed");
-		std::cout << "Enter number of sails: ";
+		std::cout << "Enter number of sails (non negative): ";
 		in >> numOfSails;
 		if (numOfSails < 0)
 			throw std::invalid_argument("Vehicle initialization failed: cant have negative number of sails");

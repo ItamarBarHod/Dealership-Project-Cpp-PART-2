@@ -35,11 +35,11 @@ std::istream& Car::read(std::istream& in)
 		in >> drivingSpeed >> numOfWheels;
 	}
 	else {
-		std::cout << "Enter driving speed : ";
+		std::cout << "Enter driving speed (non negative): ";
 		in >> drivingSpeed;
 		if (drivingSpeed < 0)
 			throw std::invalid_argument("Vehicle initialization failed: cant have negative speed");
-		std::cout << "Enter number of wheels: ";
+		std::cout << "Enter number of wheels (non negative): ";
 		in >> numOfWheels;
 		if (numOfWheels < 0)
 			throw std::invalid_argument("Vehicle initialization failed: cant have negative number of wheels");
